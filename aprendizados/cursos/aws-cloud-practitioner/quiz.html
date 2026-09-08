@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Cloud Practitioner — Quiz Interativo (CLF-C02)</title>
+<style>
+  :root {
+    --aws-orange: #ff9900;
+    --aws-dark: #232f3e;
+    --ok: #1e8e3e;
+    --bad: #d93025;
+    --bg: #f4f6f8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+  header {
+    background: var(--aws-dark);
+    color: #fff;
+    padding: 20px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+  header h1 { margin: 0 0 4px; font-size: 20px; }
+  header p { margin: 0; font-size: 13px; opacity: .85; }
+  #scorebar {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .pill {
+    background: rgba(255,255,255,.12);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  #resetBtn {
+    margin-left: auto;
+    background: var(--aws-orange);
+    border: none;
+    color: #232f3e;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  #resetBtn:hover { background: #ffb84d; }
+  .container { max-width: 860px; margin: 0 auto; padding: 20px 16px 60px; }
+  .domain {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  .domain h2 {
+    color: var(--aws-dark);
+    border-left: 5px solid var(--aws-orange);
+    padding-left: 12px;
+    margin: 0 0 6px;
+    font-size: 18px;
+  }
+  .domain .sub { color: #666; font-size: 13px; margin: 0 0 14px; }
+  .q {
+    border-top: 1px solid #eee;
+    padding: 16px 0;
+  }
+  .q:first-of-type { border-top: none; }
+  .q .qt { font-weight: 600; margin-bottom: 10px; }
+  .q .qt .num { color: var(--aws-orange); font-weight: 700; margin-right: 4px; }
+  .opt {
+    display: block;
+    padding: 9px 12px;
+    margin: 6px 0;
+    border: 1.5px solid #d5d5d5;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .15s;
+    background: #fff;
+  }
+  .opt:hover { border-color: var(--aws-orange); background: #fff8f0; }
+  .opt .letter { font-weight: 700; margin-right: 8px; color: var(--aws-dark); }
+  .opt.correct { border-color: var(--ok); background: #e6f4ea; }
+  .opt.correct .letter { color: var(--ok); }
+  .opt.wrong { border-color: var(--bad); background: #fce8e6; }
+  .opt.wrong .letter { color: var(--bad); }
+  .opt.disabled { pointer-events: none; opacity: .85; }
+  .opt.dim { opacity: .55; }
+  .expl {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    background: #f0f4f8;
+    border-left: 4px solid var(--aws-dark);
+  }
+  .expl.show { display: block; }
+  .expl .verdict { font-weight: 700; }
+  .expl.ok { border-left-color: var(--ok); background: #e6f4ea; }
+  .expl.ok .verdict { color: var(--ok); }
+  .expl.bad { border-left-color: var(--bad); background: #fce8e6; }
+  .expl.bad .verdict { color: var(--bad); }
+  footer { text-align: center; color: #888; font-size: 12px; padding: 20px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>AWS Cloud Practitioner — Quiz Interativo (CLF-C02)</h1>
+  <p>115 questões de múltipla escolha · Clique na alternativa para responder. Feedback imediato + explicação.</p>
+  <p style="margin:6px 0 0;"><a href="guia.html" style="color:#ff9900;text-decoration:underline;">📖 Ver o guia completo de estudo →</a></p>
+  <div id="scorebar">
+    <span class="pill" id="score">Acertos: 0 / 0</span>
+    <span class="pill" id="pct">0%</span>
+    <button id="resetBtn" onclick="resetQuiz()">↺ Reiniciar quiz</button>
+  </div>
+</header>
+
+<div class="container" id="quiz"></div>
+
+<footer>Feito para estudo do exame AWS Certified Cloud Practitioner · Material de apoio</footer>
+
+<script>
+const DATA = [
+  {
+    title: "1. Cloud Concepts (Conceitos de Nuvem)",
+    sub: "15 questões — fundamentos, vantagens, Well-Architected, Shared Responsibility, modelos.",
+    questions: [
+      { q: "What is cloud computing?", opts: ["Storing data only on local servers", "On-demand delivery of IT resources over the internet with pay-as-you-go pricing", "A physical data center you must buy", "Software that runs only on mobile devices"], ans: 1, expl: "Nuvem = entrega de recursos sob demanda pela internet, pagando pelo uso." },
+      { q: "Which is an advantage of moving to the cloud?", opts: ["You gain full control of the physical hardware", "You trade upfront capital expense for variable expense", "You must guess capacity in advance", "You pay even when resources are idle"], ans: 1, expl: "Vantagem clássica: CAPEX → OPEX (troca custo fixo por variável)." },
+      { q: "Which term describes paying only for the resources you use?", opts: ["Pay-as-you-go", "Upfront cost", "Fixed monthly fee", "Reserved capacity"], ans: 0, expl: "Pay-as-you-go = paga só pelo que usa." },
+      { q: "A company wants to scale up during peak and scale down during off-peak automatically. This describes:", opts: ["Scalability only", "Elasticity", "Agility", "Fault tolerance"], ans: 1, expl: "Elasticidade = escalar pra cima E pra baixo automaticamente." },
+      { q: "Which is the strongest availability concept (no interruption at all during a failure)?", opts: ["Disaster Recovery", "High Availability", "Fault Tolerance", "Backup"], ans: 2, expl: "Hierarquia: DR < HA < Tolerância a falhas (sem interrupção nenhuma)." },
+      { q: "Which Well-Architected pillar focuses on avoiding unnecessary spending?", opts: ["Performance efficiency", "Cost optimization", "Reliability", "Security"], ans: 1, expl: "Cost optimization = evitar gasto desnecessário." },
+      { q: "Which Well-Architected pillar is about recovering from failures?", opts: ["Operational excellence", "Reliability", "Sustainability", "Security"], ans: 1, expl: "Reliability = recuperar de falhas e garantir disponibilidade." },
+      { q: "Who is responsible for security OF the cloud (physical infrastructure)?", opts: ["The customer", "AWS", "The third-party auditor", "Nobody"], ans: 1, expl: "AWS cuida da segurança DA nuvem (infra física)." },
+      { q: "Who is responsible for configuring security groups on an EC2 instance?", opts: ["The customer", "AWS", "The OS vendor", "AWS Support"], ans: 0, expl: "Segurança NA nuvem (config) é responsabilidade sua." },
+      { q: "Which service model gives you the most control over the infrastructure?", opts: ["SaaS", "PaaS", "IaaS", "FaaS"], ans: 2, expl: "IaaS = você gerencia SO, app e dados (mais controle)." },
+      { q: "An email service you just configure and use (like Amazon WorkMail) is an example of:", opts: ["IaaS", "PaaS", "SaaS", "FaaS"], ans: 2, expl: "Software pronto, é só configurar = SaaS." },
+      { q: "A company keeps some servers on-premises and connects them to AWS. This is:", opts: ["Public cloud", "Private cloud", "Hybrid cloud", "Edge computing"], ans: 2, expl: "On-premises + nuvem pública = híbrida." },
+      { q: "Which statement about Regions is correct?", opts: ["A Region spans multiple countries", "A Region is a geographic area with multiple Availability Zones", "A Region is a single data center", "All Regions have identical services"], ans: 1, expl: "Região = área geográfica com múltiplas AZs." },
+      { q: "What is an Availability Zone?", opts: ["A global cache point", "One or more isolated data centers within a Region", "A separate geographic area", "A DNS service"], ans: 1, expl: "AZ = data centers isolados dentro de uma região." },
+      { q: "Which AWS service is global (not regional)?", opts: ["Amazon EC2", "AWS IAM", "Amazon S3", "Amazon RDS"], ans: 1, expl: "IAM, Route 53 e CloudFront são globais." },
+      { q: "A company wants to deploy applications to users around the world with minimal delay. Which cloud advantage does this represent?", opts: ["Massive economies of scale", "Go global in minutes", "Stop guessing capacity", "Trade CAPEX for OPEX"], ans: 1, expl: "Alcance global em minutos." },
+      { q: "What does 'agility' mean in cloud computing?", opts: ["The speed to acquire and access resources", "Automatic scaling", "Fault tolerance", "Data durability"], ans: 0, expl: "Agilidade = rapidez pra criar/acessar recursos." },
+      { q: "Adding more EC2 instances to handle increased load is an example of which scaling?", opts: ["Vertical scaling", "Horizontal scaling", "Diagonal scaling", "Manual scaling"], ans: 1, expl: "Mais instâncias = escalabilidade horizontal." },
+      { q: "In which model is the customer responsible for the MOST (OS, applications, data)?", opts: ["SaaS", "PaaS", "IaaS", "Serverless"], ans: 2, expl: "IaaS = você gerencia SO, app e dados." },
+      { q: "Which of the following is NOT a characteristic of the AWS Free Tier?", opts: ["Always free offers", "12 months free offers", "Trials", "Unlimited free resources forever"], ans: 3, expl: "Free Tier tem limites; não é ilimitado." },
+    ]
+  },
+  {
+    title: "2. Security & Compliance (Segurança e Compliance)",
+    sub: "15 questões — IAM, Organizations, Artifact, WAF/Shield, KMS, Cognito, MFA.",
+    questions: [
+      { q: "Which IAM entity is temporary and can be assumed by services (like an EC2 instance)?", opts: ["User", "Group", "Role", "Root account"], ans: 2, expl: "Role = permissão temporária assumida por serviços." },
+      { q: "What is the recommended practice when granting permissions?", opts: ["Give admin access to everyone", "Grant least privilege (only what is needed)", "Share root credentials", "Disable MFA"], ans: 1, expl: "Princípio do menor privilégio (least privilege)." },
+      { q: "What is an IAM policy?", opts: ["A physical security rule", "A JSON document that defines permissions", "A password", "A network rule"], ans: 1, expl: "Policy = documento JSON que define permissões." },
+      { q: "Which service allows you to manage multiple AWS accounts and consolidate billing?", opts: ["AWS IAM", "AWS Organizations", "AWS Config", "Amazon Cognito"], ans: 1, expl: "Organizations = várias contas + faturamento consolidado." },
+      { q: "Which service provides compliance reports (SOC, ISO, PCI)?", opts: ["AWS Shield", "AWS Artifact", "AWS WAF", "Amazon GuardDuty"], ans: 1, expl: "Artifact = relatórios de compliance." },
+      { q: "Which service protects against DDoS attacks?", opts: ["AWS WAF", "AWS Shield", "AWS KMS", "Amazon Cognito"], ans: 1, expl: "Shield = proteção contra DDoS." },
+      { q: "Which service is a web application firewall?", opts: ["AWS Shield", "AWS WAF", "Amazon GuardDuty", "AWS IAM"], ans: 1, expl: "WAF = firewall de aplicação web." },
+      { q: "Which service provides threat detection (monitors for malicious activity)?", opts: ["AWS Config", "Amazon GuardDuty", "AWS KMS", "AWS Artifact"], ans: 1, expl: "GuardDuty = detecção de ameaças." },
+      { q: "Which service manages encryption keys?", opts: ["Amazon Cognito", "AWS KMS", "AWS WAF", "AWS Shield"], ans: 1, expl: "KMS = gerenciamento de chaves de criptografia." },
+      { q: "Which service handles user sign-up and sign-in for your application?", opts: ["AWS IAM", "Amazon Cognito", "AWS Organizations", "AWS Config"], ans: 1, expl: "Cognito = login de usuários finais." },
+      { q: "Which control operates at the instance level and is stateful?", opts: ["Network ACL", "Security Group", "Internet Gateway", "Route Table"], ans: 1, expl: "Security Group = firewall por instância, stateful." },
+      { q: "What is MFA used for?", opts: ["Encrypting data", "Adding an extra layer of security to sign-in", "Monitoring traffic", "Managing costs"], ans: 1, expl: "MFA = camada extra de segurança no login." },
+      { q: "Which service continuously evaluates your resource configurations against rules?", opts: ["AWS CloudTrail", "AWS Config", "Amazon CloudWatch", "AWS Trusted Advisor"], ans: 1, expl: "Config = monitora configuração contra regras." },
+      { q: "Who is responsible for encrypting data at rest in S3?", opts: ["AWS automatically encrypts everything", "The customer", "The S3 service only", "Nobody"], ans: 1, expl: "Dados que você põe na nuvem são sua responsabilidade." },
+      { q: "Which statement about the root user is correct?", opts: ["It should be shared with the team", "It has full access and should be used only for account setup", "It is temporary", "It has no permissions"], ans: 1, expl: "Root tem acesso total; use só para setup." },
+      { q: "What is the best way for an application on EC2 to access S3?", opts: ["Hardcode access keys in the code", "Attach an IAM Role to the instance", "Share the root credentials", "Disable security groups"], ans: 1, expl: "Role = credencial temporária e segura." },
+      { q: "Which AWS service performs automated security assessments of your applications?", opts: ["Amazon GuardDuty", "Amazon Inspector", "AWS Shield", "AWS WAF"], ans: 1, expl: "Inspector = avaliação de segurança." },
+      { q: "Which service provides a central place to manage sign-in and access across multiple AWS accounts?", opts: ["AWS IAM Identity Center (SSO)", "Amazon Cognito", "AWS Config", "AWS Organizations"], ans: 0, expl: "IAM Identity Center = SSO centralizado." },
+      { q: "Which feature logs the network traffic going in and out of your VPC?", opts: ["VPC Flow Logs", "CloudTrail", "CloudWatch", "GuardDuty"], ans: 0, expl: "VPC Flow Logs = log do tráfego de rede." },
+      { q: "Which principle means a user should have ONLY the permissions required for their job?", opts: ["Defense in depth", "Least privilege", "Separation of duties", "Zero trust"], ans: 1, expl: "Menor privilégio = só o necessário." },
+    ]
+  },
+  {
+    title: "3. Technology & Services (Tecnologia e Serviços)",
+    sub: "25 questões — EC2, Lambda, Containers, Storage, Bancos, Rede, Integração.",
+    questions: [
+      { q: "A database loads large datasets into memory. Which EC2 family?", opts: ["Compute Optimized", "Memory Optimized", "Storage Optimized", "General Purpose"], ans: 1, expl: "Muita RAM = Memory Optimized." },
+      { q: "A workload runs short-term and unpredictable, with no commitment. Which option?", opts: ["Reserved Instances", "On-Demand Instances", "Spot Instances", "Dedicated Hosts"], ans: 1, expl: "Imprevisível e sem compromisso = On-Demand." },
+      { q: "Which option can be interrupted by AWS?", opts: ["Reserved Instances", "Spot Instances", "On-Demand", "Dedicated Hosts"], ans: 1, expl: "Spot pode ser interrompido pela AWS." },
+      { q: "Which service adds/removes EC2 instances based on demand?", opts: ["Elastic Load Balancing", "Amazon EC2 Auto Scaling", "Amazon Route 53", "AWS CloudFormation"], ans: 1, expl: "Auto Scaling cria/remove instâncias." },
+      { q: "Which service distributes traffic across instances?", opts: ["Auto Scaling", "Elastic Load Balancing", "CloudWatch", "CloudTrail"], ans: 1, expl: "ELB distribui o tráfego." },
+      { q: "Which service runs code when a file is uploaded to S3, without servers?", opts: ["EC2", "AWS Lambda", "ECS", "Fargate"], ans: 1, expl: "Event-driven + serverless = Lambda." },
+      { q: "How is Lambda billed?", opts: ["Per hour", "Per request and compute time (duration)", "Fixed monthly", "Per stored GB"], ans: 1, expl: "Lambda cobra por invocação + tempo de execução." },
+      { q: "Which service is a managed Kubernetes service?", opts: ["ECS", "EKS", "Fargate", "ECR"], ans: 1, expl: "EKS = Kubernetes gerenciado." },
+      { q: "Run containers without managing servers?", opts: ["EC2", "Fargate", "Lightsail", "Lambda"], ans: 1, expl: "Fargate = containers serverless." },
+      { q: "Which is object storage with 11 9s durability?", opts: ["EBS", "S3", "EFS", "RDS"], ans: 1, expl: "S3 = armazenamento de objetos, 11 noves." },
+      { q: "Which is block storage for a single EC2 instance?", opts: ["S3", "EBS", "EFS", "DynamoDB"], ans: 1, expl: "EBS = disco (block) de uma instância." },
+      { q: "Which is a shared file system for multiple instances across AZs?", opts: ["S3", "EBS", "EFS", "Instance Store"], ans: 2, expl: "EFS = pasta compartilhada (multi-AZ)." },
+      { q: "Which S3 class is the cheapest for rarely accessed data (hours of retrieval)?", opts: ["S3 Standard", "S3 Standard-IA", "S3 Glacier Deep Archive", "S3 Intelligent-Tiering"], ans: 2, expl: "Deep Archive = o mais barato e mais lento." },
+      { q: "Which is a NoSQL database?", opts: ["RDS", "DynamoDB", "Aurora", "Redshift"], ans: 1, expl: "DynamoDB = NoSQL chave-valor." },
+      { q: "Which is a data warehouse for analytics?", opts: ["RDS", "Redshift", "DynamoDB", "ElastiCache"], ans: 1, expl: "Redshift = data warehouse (OLAP)." },
+      { q: "Which service is DNS?", opts: ["CloudFront", "Route 53", "VPC", "Direct Connect"], ans: 1, expl: "Route 53 = DNS (nome → IP)." },
+      { q: "Which service is a CDN that delivers content with low latency?", opts: ["VPC", "CloudFront", "Route 53", "ELB"], ans: 1, expl: "CloudFront = CDN via edge locations." },
+      { q: "Which service creates an isolated private network?", opts: ["Route 53", "VPC", "CloudFront", "Direct Connect"], ans: 1, expl: "VPC = rede privada isolada." },
+      { q: "Which is pub/sub (push) to many subscribers?", opts: ["SQS", "SNS", "EventBridge", "Step Functions"], ans: 1, expl: "SNS = pub/sub, push, um pra muitos." },
+      { q: "Which is a message queue (pull) that stores messages?", opts: ["SNS", "SQS", "CloudFront", "Lambda"], ans: 1, expl: "SQS = fila (pull) que guarda mensagens." },
+      { q: "Which SQS type guarantees order and no duplicates?", opts: ["Standard", "FIFO", "Delay", "Dead-letter"], ans: 1, expl: "FIFO = ordem garantida, sem duplicatas." },
+      { q: "Which service orchestrates a workflow of multiple steps with retries?", opts: ["SQS", "Step Functions", "EventBridge", "SNS"], ans: 1, expl: "Step Functions = orquestra workflows." },
+      { q: "Which service manages infrastructure as code (templates)?", opts: ["CloudWatch", "CloudFormation", "CloudTrail", "Config"], ans: 1, expl: "CloudFormation = infra como código." },
+      { q: "Which service deploys web apps without managing the underlying infrastructure (PaaS)?", opts: ["EC2", "Elastic Beanstalk", "Lightsail", "Lambda"], ans: 1, expl: "Elastic Beanstalk = PaaS para apps web." },
+      { q: "Which service runs SQL queries directly on data in S3 (serverless)?", opts: ["Redshift", "Athena", "RDS", "EMR"], ans: 1, expl: "Athena = SQL serverless direto no S3." },
+      { q: "Which service runs big data frameworks like Apache Spark and Hadoop?", opts: ["Amazon EMR", "Amazon Athena", "AWS Glue", "Amazon Redshift"], ans: 0, expl: "EMR = big data (Spark/Hadoop)." },
+      { q: "Which service ingests and processes streaming data in real time?", opts: ["Amazon Kinesis", "Amazon SQS", "Amazon SNS", "Amazon EMR"], ans: 0, expl: "Kinesis = streaming em tempo real." },
+      { q: "Which service is a serverless ETL tool that prepares data?", opts: ["AWS Glue", "Amazon EMR", "Amazon Athena", "AWS DMS"], ans: 0, expl: "Glue = ETL serverless." },
+      { q: "Which service migrates databases to AWS?", opts: ["AWS DMS", "AWS Glue", "Amazon RDS", "Amazon S3"], ans: 0, expl: "DMS = migração de banco." },
+      { q: "Which service is a physical device to transfer petabytes of data to AWS?", opts: ["AWS Snow Family", "Storage Gateway", "S3 Glacier", "Direct Connect"], ans: 0, expl: "Snow Family = dispositivo físico de transferência." },
+      { q: "Which storage is temporary and loses data when the instance stops?", opts: ["Amazon EBS", "Instance Store", "Amazon EFS", "Amazon S3"], ans: 1, expl: "Instance Store é efêmero." },
+      { q: "Where are EBS snapshots stored?", opts: ["Amazon EFS", "Amazon S3", "Amazon DynamoDB", "Amazon RDS"], ans: 1, expl: "Snapshots do EBS vão pro S3." },
+      { q: "Which Route 53 routing policy sends users to the region with the lowest latency?", opts: ["Simple", "Weighted", "Latency-based", "Failover"], ans: 2, expl: "Latency-based = menor latência." },
+      { q: "Which ELB type operates at the application layer (Layer 7)?", opts: ["Network Load Balancer", "Application Load Balancer", "Gateway Load Balancer", "Classic"], ans: 1, expl: "ALB = camada 7 (HTTP/HTTPS)." },
+      { q: "Which service provides a dedicated physical connection from on-premises to AWS?", opts: ["AWS Direct Connect", "AWS VPN", "VPC Peering", "Route 53"], ans: 0, expl: "Direct Connect = conexão física dedicada." },
+      { q: "Which feature gives an EC2 instance a static public IP that survives stop/start?", opts: ["Security Group", "Elastic IP", "NACL", "Route Table"], ans: 1, expl: "Elastic IP = IP público estático." },
+      { q: "What is an AMI?", opts: ["A load balancer", "A pre-configured template to launch EC2 instances", "A database service", "A monitoring tool"], ans: 1, expl: "AMI = imagem/template de instância." },
+      { q: "Which service caches frequently accessed data in memory (Redis/Memcached)?", opts: ["Amazon ElastiCache", "Amazon DynamoDB", "Amazon RDS", "Amazon Redshift"], ans: 0, expl: "ElastiCache = cache em memória." },
+      { q: "Which service provides a managed MySQL/Postgres-compatible relational database?", opts: ["Amazon Aurora", "Amazon DynamoDB", "Amazon Redshift", "Amazon Neptune"], ans: 0, expl: "Aurora = relacional compatível MySQL/Postgres." },
+      { q: "Which service provides BI dashboards and visualization?", opts: ["Amazon QuickSight", "Amazon Athena", "Amazon Redshift", "AWS Glue"], ans: 0, expl: "QuickSight = BI/dashboards." },
+    ]
+  },
+  {
+    title: "4. Billing & Pricing (Cobrança e Preço)",
+    sub: "10 questões — modelos de preço, Budgets/Cost Explorer, suporte, TCO.",
+    questions: [
+      { q: "A workload runs 24/7 with steady usage. Most cost-effective?", opts: ["On-Demand", "Reserved Instances", "Spot", "Dedicated Hosts"], ans: 1, expl: "Carga estável 24/7 = Reserved (desconto ~72%)." },
+      { q: "Which pricing model commits to a dollar-per-hour spend for flexibility across services?", opts: ["Reserved Instances", "Savings Plans", "Spot", "On-Demand"], ans: 1, expl: "Savings Plans = compromisso de $/hora, flexível." },
+      { q: "Which service alerts you when spending is forecast to exceed a limit?", opts: ["Cost Explorer", "AWS Budgets", "Cost & Usage Report", "Trusted Advisor"], ans: 1, expl: "Budgets = alerta de gasto futuro." },
+      { q: "Which service lets you visualize and analyze past spending?", opts: ["Budgets", "Cost Explorer", "AWS Artifact", "CloudWatch"], ans: 1, expl: "Cost Explorer = analisa gasto passado." },
+      { q: "Which support plan is free?", opts: ["Business", "Basic", "Enterprise", "Developer"], ans: 1, expl: "Basic é o plano gratuito." },
+      { q: "Which support plan provides fastest response and a TAM (Technical Account Manager)?", opts: ["Basic", "Developer", "Business", "Enterprise"], ans: 3, expl: "Enterprise = resposta mais rápida + TAM." },
+      { q: "Which service provides recommendations on cost, security, and performance?", opts: ["CloudWatch", "Trusted Advisor", "CloudTrail", "Config"], ans: 1, expl: "Trusted Advisor = recomendações de otimização." },
+      { q: "What does consolidated billing (via AWS Organizations) allow?", opts: ["Splitting bills per employee", "Combining usage across accounts for volume discounts", "Free services", "Automatic encryption"], ans: 1, expl: "Consolidated billing = soma o uso pra ganhar desconto por volume." },
+      { q: "Which term compares total cost of running on-premises vs cloud?", opts: ["Pay-as-you-go", "Total Cost of Ownership (TCO)", "CAPEX", "Elasticity"], ans: 1, expl: "TCO = custo total (nuvem vs on-premises)." },
+      { q: "What does CAPEX mean?", opts: ["Upfront capital expenditure (buying hardware)", "Monthly operating expense", "Pay-per-use cost", "Discounted pricing"], ans: 0, expl: "CAPEX = investimento inicial (compra de hardware)." },
+      { q: "Where can you buy and sell third-party software to run on AWS?", opts: ["AWS Marketplace", "AWS Artifact", "AWS Config", "AWS Trusted Advisor"], ans: 0, expl: "Marketplace = software de terceiros." },
+      { q: "Which tool helps you estimate future AWS costs?", opts: ["AWS Pricing Calculator", "AWS Cost Explorer", "AWS Budgets", "AWS Trusted Advisor"], ans: 0, expl: "Pricing Calculator = estima custos futuros." },
+      { q: "What is the main purpose of tagging resources?", opts: ["To encrypt data", "To organize and track costs", "To improve performance", "To reduce latency"], ans: 1, expl: "Tags = organizar e rastrear custos." },
+      { q: "Which pricing model is ideal for a batch job that tolerates interruption?", opts: ["Reserved Instances", "Spot Instances", "On-Demand", "Savings Plans"], ans: 1, expl: "Spot = barato, tolera interrupção." },
+      { q: "Consolidated billing gives volume discounts across accounts. What else does it provide?", opts: ["A single monthly bill", "Free support", "Automatic scaling", "Data encryption"], ans: 0, expl: "Consolidated = uma fatura única mensal." },
+    ]
+  },
+  {
+    title: "5. Integration, Analytics & Architecture (Integração, Analytics e Arquitetura)",
+    sub: "20 questões — SNS/SQS, EventBridge, Step Functions, Athena, Glue, Kinesis, VPC Endpoint, CloudFront, Multi-AZ.",
+    questions: [
+      { q: "Which pattern broadcasts a message to multiple queues while guaranteeing delivery?", opts: ["SNS → SQS", "SQS → SNS", "EC2 → S3", "Lambda → EC2"], ans: 0, expl: "SNS faz broadcast; SQS garante entrega." },
+      { q: "Which service routes events from various sources to different targets based on rules?", opts: ["Amazon EventBridge", "Amazon SNS", "AWS Step Functions", "Amazon SQS"], ans: 0, expl: "EventBridge = roteamento de eventos por regras." },
+      { q: "Which service manages stateful workflows with retries between Lambda functions?", opts: ["AWS Step Functions", "Amazon EventBridge", "Amazon SQS", "Amazon SNS"], ans: 0, expl: "Step Functions = workflow com estado e retry." },
+      { q: "Which service lets you create, publish, and manage RESTful APIs?", opts: ["Amazon API Gateway", "Amazon Route 53", "AWS Direct Connect", "Amazon CloudFront"], ans: 0, expl: "API Gateway = criar/publicar APIs." },
+      { q: "Which service lets you run queries over data stored in S3 without loading it into a database?", opts: ["Amazon Athena", "Amazon Redshift", "Amazon RDS", "Amazon EMR"], ans: 0, expl: "Athena = query serverless no S3." },
+      { q: "What is the main purpose of an ELB health check?", opts: ["To route traffic only to healthy instances", "To scale instances", "To encrypt traffic", "To reduce cost"], ans: 0, expl: "Health check = só manda tráfego pra instância saudável." },
+      { q: "Deploying across multiple AZs primarily provides which benefit?", opts: ["High availability", "Lower storage cost", "Faster compute", "Data compression"], ans: 0, expl: "Múltiplas AZs = alta disponibilidade." },
+      { q: "Which service helps you automate operational tasks like patching at scale?", opts: ["AWS Systems Manager", "Amazon CloudWatch", "AWS CloudFormation", "AWS Config"], ans: 0, expl: "Systems Manager = automação operacional." },
+      { q: "Which service lets you access AWS services privately without the public internet?", opts: ["VPC Endpoint", "Internet Gateway", "NAT Gateway", "Direct Connect"], ans: 0, expl: "VPC Endpoint = acesso privado a serviços." },
+      { q: "Which service is a serverless data integration service for ETL?", opts: ["AWS Glue", "Amazon EMR", "Amazon Kinesis", "AWS DMS"], ans: 0, expl: "Glue = ETL serverless." },
+      { q: "Which service captures and processes real-time streaming data for analytics?", opts: ["Amazon Kinesis", "Amazon SQS", "Amazon SNS", "Amazon Athena"], ans: 0, expl: "Kinesis = streaming." },
+      { q: "Where does CloudFront typically get content from (its source)?", opts: ["An origin like S3 or EC2", "Route 53", "A VPC", "Direct Connect"], ans: 0, expl: "Origem do CloudFront = S3 ou EC2." },
+      { q: "Which service provides a graph database?", opts: ["Amazon Neptune", "Amazon DynamoDB", "Amazon RDS", "Amazon ElastiCache"], ans: 0, expl: "Neptune = banco de grafos." },
+      { q: "Which service is a fully managed NoSQL key-value store for low latency at any scale?", opts: ["Amazon DynamoDB", "Amazon Redshift", "Amazon Aurora", "Amazon Neptune"], ans: 0, expl: "DynamoDB = NoSQL chave-valor." },
+      { q: "Which CloudWatch feature notifies you when a metric crosses a threshold?", opts: ["CloudWatch Alarm", "CloudWatch Logs", "CloudWatch Dashboard", "CloudTrail"], ans: 0, expl: "Alarm = notifica quando métrica cruza limite." },
+      { q: "Which service transfers data between on-premises and AWS over the internet?", opts: ["AWS Storage Gateway", "AWS Snowball", "AWS Direct Connect", "AWS VPN"], ans: 0, expl: "Storage Gateway = ponte on-premises ↔ nuvem." },
+      { q: "Which Route 53 policy routes traffic to a backup site if the primary fails?", opts: ["Failover routing", "Simple routing", "Weighted routing", "Geolocation"], ans: 0, expl: "Failover = rota pro backup se o principal cair." },
+      { q: "Which service gives you a private, isolated section of the AWS cloud?", opts: ["Amazon VPC", "Amazon Route 53", "Amazon CloudFront", "AWS Direct Connect"], ans: 0, expl: "VPC = seção privada e isolada." },
+      { q: "Which service stores and manages Docker container images?", opts: ["Amazon ECR", "Amazon S3", "Amazon EBS", "Amazon EFS"], ans: 0, expl: "ECR = repositório de imagens Docker." },
+      { q: "Which service is a petabyte-scale data warehouse?", opts: ["Amazon Redshift", "Amazon RDS", "Amazon DynamoDB", "Amazon Aurora"], ans: 0, expl: "Redshift = data warehouse." },
+    ]
+  },
+];
+
+const LETTERS = ["A", "B", "C", "D", "E"];
+let answered = 0;
+let correct = 0;
+
+function buildQuiz() {
+  const root = document.getElementById('quiz');
+  let html = '';
+  let qn = 0;
+  DATA.forEach((domain, di) => {
+    html += `<div class="domain"><h2>${domain.title}</h2><p class="sub">${domain.sub}</p>`;
+    domain.questions.forEach((q, qi) => {
+      qn++;
+      const id = `q${di}-${qi}`;
+      html += `<div class="q" id="${id}">`;
+      html += `<div class="qt"><span class="num">Q${qn}.</span> ${q.q}</div>`;
+      q.opts.forEach((opt, oi) => {
+        html += `<div class="opt" data-di="${di}" data-qi="${qi}" data-oi="${oi}"><span class="letter">${LETTERS[oi]}.</span> ${opt}</div>`;
+      });
+      html += `<div class="expl" id="expl-${id}"></div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+  root.innerHTML = html;
+
+  document.querySelectorAll('.opt').forEach(el => {
+    el.addEventListener('click', () => {
+      const di = parseInt(el.dataset.di);
+      const qi = parseInt(el.dataset.qi);
+      const oi = parseInt(el.dataset.oi);
+      answer(di, qi, oi, el);
+    });
+  });
+}
+
+function answer(di, qi, oi, clickedEl) {
+  const q = DATA[di].questions[qi];
+  const id = `q${di}-${qi}`;
+  const container = document.getElementById(id);
+  const opts = container.querySelectorAll('.opt');
+  if (clickedEl.classList.contains('disabled')) return; // already answered
+
+  const isCorrect = (oi === q.ans);
+  answered++;
+  if (isCorrect) correct++;
+
+  // lock all options
+  opts.forEach(el => el.classList.add('disabled'));
+  // mark correct & wrong
+  opts.forEach((el, idx) => {
+    if (idx === q.ans) el.classList.add('correct');
+    else el.classList.add('dim');
+  });
+  if (!isCorrect) clickedEl.classList.add('wrong');
+
+  // show explanation
+  const expl = document.getElementById('expl-' + id);
+  expl.classList.add('show');
+  expl.classList.add(isCorrect ? 'ok' : 'bad');
+  expl.innerHTML = `<span class="verdict">${isCorrect ? '✅ Correto!' : '❌ Errado.'}</span> Resposta certa: <strong>${LETTERS[q.ans]}</strong>. ${q.expl}`;
+
+  updateScore();
+  expl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function updateScore() {
+  const total = DATA.reduce((s, d) => s + d.questions.length, 0);
+  document.getElementById('score').textContent = `Acertos: ${correct} / ${answered} (de ${total})`;
+  const pct = answered ? Math.round((correct / answered) * 100) : 0;
+  document.getElementById('pct').textContent = `${pct}%`;
+}
+
+function resetQuiz() {
+  answered = 0;
+  correct = 0;
+  buildQuiz();
+  updateScore();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+buildQuiz();
+updateScore();
+</script>
+</body>
+</html>
