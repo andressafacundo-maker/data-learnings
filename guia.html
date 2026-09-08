@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Cloud Practitioner — Guia de Estudo Completo (CLF-C02)</title>
+<style>
+  :root {
+    --orange: #ff9900;
+    --dark: #232f3e;
+    --light: #f4f6f8;
+    --accent: #146eb4;
+    --border: #e3e6ea;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.6;
+    background: #fff;
+  }
+  /* ==== SIDEBAR ==== */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 280px;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--dark);
+    color: #fff;
+    padding: 20px 0 40px;
+    z-index: 100;
+  }
+  .sidebar .brand {
+    padding: 0 22px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.15);
+    margin-bottom: 12px;
+  }
+  .sidebar .brand .t1 { font-size: 15px; font-weight: 800; color: var(--orange); }
+  .sidebar .brand .t2 { font-size: 12px; opacity: .75; margin-top: 3px; }
+  .sidebar a {
+    display: block;
+    color: #d5dbe2;
+    text-decoration: none;
+    padding: 7px 22px;
+    font-size: 13px;
+    border-left: 3px solid transparent;
+    transition: all .15s;
+  }
+  .sidebar a:hover { background: rgba(255,255,255,.06); color: #fff; border-left-color: var(--orange); }
+  .sidebar a.sub { padding-left: 36px; font-size: 12px; opacity: .85; }
+  /* ==== MAIN ==== */
+  .main {
+    margin-left: 280px;
+    padding: 32px 40px 80px;
+    max-width: 980px;
+  }
+  h1 {
+    color: var(--dark);
+    font-size: 28px;
+    border-bottom: 4px solid var(--orange);
+    padding-bottom: 10px;
+    margin-top: 0;
+  }
+  h2 {
+    color: var(--dark);
+    font-size: 22px;
+    border-bottom: 2px solid var(--dark);
+    padding-bottom: 6px;
+    margin-top: 44px;
+    scroll-margin-top: 20px;
+  }
+  h3 { color: var(--accent); font-size: 17px; margin-top: 28px; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+  th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: var(--dark); color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: var(--light); }
+  pre {
+    background: #f6f8fa;
+    border-left: 4px solid var(--orange);
+    padding: 14px;
+    overflow-x: auto;
+    font-size: 12.5px;
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    border-radius: 0 6px 6px 0;
+  }
+  code { background: #eef1f4; padding: 1px 5px; border-radius: 4px; font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 12.5px; }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    border-left: 4px solid var(--orange);
+    margin: 12px 0;
+    padding: 8px 16px;
+    background: #fff8f0;
+    color: #444;
+  }
+  hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+  strong { color: var(--dark); }
+  .backtop {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+  }
+  /* ==== MOBILE ==== */
+  @media (max-width: 820px) {
+    .sidebar { position: static; width: 100%; height: auto; max-height: 40vh; }
+    .main { margin-left: 0; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="brand">
+    <div class="t1">AWS Cloud Practitioner</div>
+    <div class="t2">Guia de Estudo · CLF-C02</div>
+  </div>
+  <a href="#1-visao-geral-do-exame">1. Visão Geral do Exame</a>
+  <a href="#2-plano-de-preparacao">2. Plano de Preparação</a>
+  <a href="#3-fundamentos-de-cloud-computing">3. Fundamentos</a>
+  <a href="#4-modelos-de-servico-iaaspaassaas">4. IaaS/PaaS/SaaS</a>
+  <a href="#5-visao-geral-dos-servicos-aws">5. Serviços AWS</a>
+  <a href="#6-deep-dive-ec2">6. EC2</a>
+  <a href="#7-deep-dive-lambda">7. Lambda</a>
+  <a href="#8-deep-dive-containers">8. Containers</a>
+  <a href="#9-deep-dive-storage">9. Storage</a>
+  <a href="#10-deep-dive-sns-e-sqs">10. SNS e SQS</a>
+  <a href="#11-deep-dive-vpc-e-rede">11. VPC e Rede</a>
+  <a href="#12-dns-e-route-53">12. DNS e Route 53</a>
+  <a href="#13-arquitetura-completa-como-tudo-se-conecta">13. Arquitetura</a>
+  <a href="#14-seguranca-e-governanca">14. Segurança</a>
+  <a href="#15-billing-e-monitoramento">15. Billing</a>
+  <a href="#16-escolha-de-regiao-e-az">16. Região e AZ</a>
+  <a href="#17-pares-confusos-pegadinhas">17. Pares Confusos</a>
+  <a href="#18-simulado-25-questoes--gabarito">18. Simulado</a>
+  <a href="#19-banco-de-questoes-por-dominio-com-gabarito">19. Banco de Questões</a>
+  <a href="#quiz-link" class="sub">🎯 Quiz interativo →</a>
+</nav>
+
+<div class="main">
+  <div style="background:#fff8f0;border:1px solid #ffd9a0;border-radius:10px;padding:16px 20px;margin-bottom:28px;">
+    <strong>🎯 Quiz interativo:</strong> também criei um quiz de 115 questões clicáveis.
+    Acesse <a href="index.html" style="color:var(--accent)">aqui</a> para praticar.
+  </div>
+<h1>☁️ AWS Cloud Practitioner Essentials — Guia Completo de Estudo (CLF-C02)</h1>
+<blockquote>
+<p><strong>Material mestre</strong> para o exame <strong>AWS Certified Cloud Practitioner</strong>.
+Feito sob medida para quem <strong>entende de dados</strong> (usa Databricks, dbt, SQL) mas <strong>não usa todas as ferramentas AWS no dia a dia</strong>.
+A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "o quê".</p>
+</blockquote>
+<hr />
+<h2>📚 Como usar este guia</h2>
+<ol>
+<li><strong>Leia as seções na ordem</strong> — cada uma constrói sobre a anterior.</li>
+<li><strong>Ancore no que você já sabe</strong> — sempre que um serviço aparecer, pergunte: <em>"onde isso entra no meu pipeline de dados?"</em></li>
+<li><strong>Use as tabelas de "pares confusos"</strong> como revisão rápida antes da prova.</li>
+<li><strong>Faça o simulado</strong> (seção 13) cronometrado.</li>
+</ol>
+<hr />
+<h2>Índice</h2>
+<ol>
+<li><a href="#1-visão-geral-do-exame">Visão Geral do Exame</a></li>
+<li><a href="#2-plano-de-preparação">Plano de Preparação</a></li>
+<li><a href="#3-fundamentos-de-cloud-computing">Fundamentos de Cloud Computing</a></li>
+<li><a href="#4-modelos-de-serviço-iaaspaassaas">Modelos de Serviço (IaaS/PaaS/SaaS)</a></li>
+<li><a href="#5-visão-geral-dos-serviços-aws">Visão Geral dos Serviços AWS</a></li>
+<li><a href="#6-deep-dive-ec2">Deep Dive: EC2</a></li>
+<li><a href="#7-deep-dive-lambda">Deep Dive: Lambda</a></li>
+<li><a href="#8-deep-dive-containers">Deep Dive: Containers</a></li>
+<li><a href="#9-deep-dive-storage">Deep Dive: Storage</a></li>
+<li><a href="#10-deep-dive-sns-e-sqs">Deep Dive: SNS e SQS</a></li>
+<li><a href="#11-deep-dive-vpc-e-rede">Deep Dive: VPC e Rede</a></li>
+<li><a href="#12-dns-e-route-53">DNS e Route 53</a></li>
+<li><a href="#13-arquitetura-completa-como-tudo-se-conecta">Arquitetura Completa (como tudo se conecta)</a></li>
+<li><a href="#14-segurança-e-governança">Segurança e Governança</a></li>
+<li><a href="#15-billing-e-monitoramento">Billing e Monitoramento</a></li>
+<li><a href="#16-escolha-de-região-e-az">Escolha de Região e AZ</a></li>
+<li><a href="#17-pares-confusos-pegadinhas">Pares Confusos (pegadinhas)</a></li>
+<li><a href="#18-simulado-25-questões--gabarito">Simulado (25 questões + gabarito)</a></li>
+<li><a href="#19-banco-de-questões-por-domínio-com-gabarito">Banco de Questões por Domínio (65 questões)</a></li>
+</ol>
+<hr />
+<h2>1. Visão Geral do Exame</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detalhe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Formato</strong></td>
+<td>65 questões (50 valem nota + 15 não contam)</td>
+</tr>
+<tr>
+<td><strong>Tempo</strong></td>
+<td>90 minutos</td>
+</tr>
+<tr>
+<td><strong>Nota de corte</strong></td>
+<td>~700 de 1000 pontos</td>
+</tr>
+<tr>
+<td><strong>Tipo</strong></td>
+<td>Múltipla escolha + múltipla resposta</td>
+</tr>
+<tr>
+<td><strong>Idioma</strong></td>
+<td>Inglês (padrão)</td>
+</tr>
+<tr>
+<td><strong>Custo</strong></td>
+<td>US$ 100</td>
+</tr>
+</tbody>
+</table>
+<h3>Os 4 domínios (seu mapa de prioridade)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domínio</th>
+<th>Peso</th>
+<th>Dificuldade p/ você</th>
+<th>Prioridade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Cloud Concepts</td>
+<td>24%</td>
+<td>Fácil</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Security &amp; Compliance</td>
+<td>30%</td>
+<td>Média (IAM é novo)</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Cloud Technology &amp; Services</td>
+<td>34%</td>
+<td><strong>Fácil</strong> (você já usa S3/EC2)</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Billing &amp; Pricing</td>
+<td>12%</td>
+<td>Fácil</td>
+<td>⭐</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Sua vantagem:</strong> o domínio 3 (34%) é onde você já tem contexto, porque seus dados rodam em cima da AWS. Garanta pontos aí e invista o tempo extra no domínio 2 (segurança), onde gente técnica costuma escorregar.</p>
+</blockquote>
+<hr />
+<h2>2. Plano de Preparação</h2>
+<h3>Ritmo sugerido: 4 semanas (ajustável)</h3>
+<table>
+<thead>
+<tr>
+<th>Semana</th>
+<th>Foco</th>
+<th>Marco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>Fundamentos + Cloud Concepts</td>
+<td>≥ 80% nas questões de conceito</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Serviços core (EC2, Lambda, Storage, Banco, Rede)</td>
+<td>Explicar os "pares confusos" sem olhar</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Segurança (IAM) + Billing</td>
+<td>Acertar "quem é responsável por X" sem errar</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Simulados + revisão</td>
+<td>2 simulados ≥ 80%</td>
+</tr>
+</tbody>
+</table>
+<h3>Técnicas de estudo (adaptadas a você)</h3>
+<ol>
+<li><strong>Repetição espaçada (Anki)</strong> — você já usa. O exame é ~60% memorização. 15–20 min/dia de flashcards.</li>
+<li><strong>Estudar "por par confuso"</strong> — a prova é feita de pegadinhas. Decore a tabela da seção 17.</li>
+<li><strong>Ancorar no que você conhece</strong> — S3 = seu data lake · Redshift = warehouse · IAM = permissão de acesso aos dados.</li>
+<li><strong>Responder questões TODO dia</strong> — nem que sejam 10. É o maior ROI (Tutorials Dojo / Whizlabs / questões oficiais).</li>
+<li><strong>Ensinar em voz alta</strong> — explicar um tópico como se ensinasse é o teste real de entendimento.</li>
+</ol>
+<h3>Seus pontos fortes e pontos de atenção</h3>
+<table>
+<thead>
+<tr>
+<th>💪 Forte</th>
+<th>⚠️ Atenção</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conhece S3, dados, pipelines → domínio 3 fica fácil</td>
+<td>IAM e segurança (não é seu dia a dia)</td>
+</tr>
+<tr>
+<td>Usa Databricks/dbt (rodam na AWS)</td>
+<td>Networking (VPC, Route 53)</td>
+</tr>
+<tr>
+<td>Já usa Anki</td>
+<td>Vocabulário inglês da prova</td>
+</tr>
+<tr>
+<td>Entende custo de cluster → billing fica intuitivo</td>
+<td>Termos exatos ("least privilege", "fault tolerance")</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Fundamentos de Cloud Computing</h2>
+<h3>Definição</h3>
+<p>Entrega de recursos de TI <strong>sob demanda pela internet</strong>, com <strong>pagamento pelo uso</strong> (pay-as-you-go).</p>
+<h3>As 6 Vantagens da Nuvem (decore)</h3>
+<ol>
+<li><strong>CAPEX → OPEX</strong> — paga só pelo que usa (troca custo fixo por variável).</li>
+<li><strong>Economia de escala</strong> — a AWS compra em massa e repassa preço menor.</li>
+<li><strong>Parar de adivinhar capacidade</strong> — escala na hora certa.</li>
+<li><strong>Velocidade e agilidade</strong> — recursos em minutos, não semanas.</li>
+<li><strong>Parar de manter data center</strong> — infra física é problema da AWS.</li>
+<li><strong>Alcance global em minutos</strong> — várias regiões no mundo.</li>
+</ol>
+<h3>Desvantagens / Desafios</h3>
+<table>
+<thead>
+<tr>
+<th>Desvantagem</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dependência de internet</td>
+<td>Sem conexão, sem acesso</td>
+</tr>
+<tr>
+<td>Vendor lock-in</td>
+<td>Dificuldade de migrar de provedor</td>
+</tr>
+<tr>
+<td>Custo pode fugir do controle</td>
+<td>Fácil criar recurso; precisa Budgets/Cost Explorer</td>
+</tr>
+<tr>
+<td>Menos controle da infra</td>
+<td>Não controla hardware/locação física</td>
+</tr>
+<tr>
+<td>Responsabilidade compartilhada</td>
+<td>Segurança <em>na</em> nuvem é sua</td>
+</tr>
+<tr>
+<td>Compliance / soberania</td>
+<td>Dados podem precisar ficar em região específica</td>
+</tr>
+</tbody>
+</table>
+<h3>Modelos de Implantação</h3>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nuvem pública</strong></td>
+<td>Recursos do provedor, compartilhados</td>
+</tr>
+<tr>
+<td><strong>Nuvem privada</strong></td>
+<td>Infra exclusiva de uma empresa</td>
+</tr>
+<tr>
+<td><strong>Híbrida</strong></td>
+<td>On-premises + nuvem pública</td>
+</tr>
+<tr>
+<td><strong>Multi-cloud</strong></td>
+<td>2+ provedores (AWS + Azure)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Deployment</strong> (onde roda) ≠ <strong>modelo de serviço</strong> (IaaS/PaaS/SaaS).</p>
+</blockquote>
+<h3>Elasticidade vs Escalabilidade vs Agilidade</h3>
+<ul>
+<li><strong>Escalabilidade</strong> = crescer pra aguentar carga (vertical = VM maior; horizontal = mais VMs).</li>
+<li><strong>Elasticidade</strong> = escalar pra cima <strong>e</strong> pra baixo <strong>automaticamente</strong>.</li>
+<li><strong>Agilidade</strong> = rapidez pra criar recursos.</li>
+</ul>
+<h3>Alta Disponibilidade vs Tolerância a Falhas vs DR</h3>
+<table>
+<thead>
+<tr>
+<th>Conceito</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alta Disponibilidade (HA)</strong></td>
+<td>Continua com mínimo downtime (múltiplas AZs)</td>
+</tr>
+<tr>
+<td><strong>Tolerância a falhas</strong></td>
+<td>Continua <strong>sem interrupção nenhuma</strong> (mais forte)</td>
+</tr>
+<tr>
+<td><strong>Disaster Recovery (DR)</strong></td>
+<td>Plano pra recuperar após desastre (RTO/RPO)</td>
+</tr>
+</tbody>
+</table>
+<p>Hierarquia: <strong>DR &lt; HA &lt; Tolerância a falhas</strong>.</p>
+<h3>Well-Architected Framework — 6 Pilares</h3>
+<ol>
+<li><strong>Excelência operacional</strong> — operar e melhorar continuamente.</li>
+<li><strong>Segurança</strong> — proteger dados e sistemas.</li>
+<li><strong>Confiabilidade</strong> — recuperar de falhas e garantir disponibilidade.</li>
+<li><strong>Eficiência de performance</strong> — usar recursos da forma certa.</li>
+<li><strong>Otimização de custos</strong> — evitar gasto desnecessário.</li>
+<li><strong>Sustentabilidade</strong> — minimizar impacto ambiental (pilar novo).</li>
+</ol>
+<h3>Shared Responsibility Model (conceito nº 1)</h3>
+<ul>
+<li><strong>AWS é responsável</strong> pela segurança <strong>DA nuvem</strong> (infra física: data center, hardware, rede, hipervisor).</li>
+<li><strong>Você é responsável</strong> pela segurança <strong>NA nuvem</strong> (dados, IAM, configuração, SO do EC2, senhas).</li>
+</ul>
+<blockquote>
+<p>Quanto mais "managed" (SaaS &gt; PaaS &gt; IaaS), mais responsabilidade da AWS e menos sua.</p>
+</blockquote>
+<h3>Regiões, AZs e Edge Locations</h3>
+<ul>
+<li><strong>Região</strong> = área geográfica (ex: <code>us-east-1</code>, <code>sa-east-1</code> em SP).</li>
+<li><strong>AZ (Availability Zone)</strong> = data centers isolados <em>dentro</em> da região.</li>
+<li><strong>Edge Location</strong> = pontos de cache global (CloudFront, Route 53).</li>
+</ul>
+<p><strong>Serviços globais:</strong> IAM, Route 53, CloudFront. <strong>Regionais:</strong> EC2, S3, RDS.</p>
+<hr />
+<h2>4. Modelos de Serviço (IaaS/PaaS/SaaS)</h2>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Você gerencia</th>
+<th>Exemplos AWS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IaaS</strong></td>
+<td>SO, aplicação, dados</td>
+<td>EC2, EBS, VPC</td>
+</tr>
+<tr>
+<td><strong>PaaS</strong></td>
+<td>Só código e dados</td>
+<td>Elastic Beanstalk, RDS, Lambda*</td>
+</tr>
+<tr>
+<td><strong>SaaS</strong></td>
+<td>Nada (só configurar)</td>
+<td>WorkMail, QuickSight</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>*Lambda = FaaS (Function as a Service), um "PaaS serverless".</p>
+</blockquote>
+<p><strong>Analogia da pizza 🍕:</strong>
+- IaaS = compra ingredientes e faz tudo.
+- PaaS = massa pronta + forno; você monta e assa.
+- SaaS = pizza pronta na porta.</p>
+<h3>Onde as responsabilidades se dividem</h3>
+<pre><code>        VOCÊ gerencia                    PROVEDOR gerencia
+  ┌──────────────────────────────────────────────────────────┐
+  │  Aplicação │ Dados │ SO │ Servidor │ Rede │ Data Center  │
+  └──────────────────────────────────────────────────────────┘
+  On-premises: você gerencia TUDO
+  IaaS:  └────── você ──────┘ └── provedor ──┘
+  PaaS:  └─── você ───┘ └────── provedor ──────┘
+  SaaS:  └─ quase nada ─┘ └────── provedor ──────┘
+</code></pre>
+<hr />
+<h2>5. Visão Geral dos Serviços AWS</h2>
+<h3>☁️ Computação</h3>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⭐ <strong>EC2</strong></td>
+<td>Servidores virtuais (VMs), paga por hora</td>
+</tr>
+<tr>
+<td>⭐ <strong>Lambda</strong></td>
+<td>Rodar código sem servidor (serverless)</td>
+</tr>
+<tr>
+<td><strong>ECS</strong></td>
+<td>Orquestrar containers Docker</td>
+</tr>
+<tr>
+<td><strong>EKS</strong></td>
+<td>Kubernetes gerenciado</td>
+</tr>
+<tr>
+<td><strong>Fargate</strong></td>
+<td>Containers sem gerenciar servidor</td>
+</tr>
+<tr>
+<td><strong>Elastic Beanstalk</strong></td>
+<td>Subir app web sem configurar infra (PaaS)</td>
+</tr>
+<tr>
+<td><strong>Lightsail</strong></td>
+<td>VPS simples pré-configurada</td>
+</tr>
+</tbody>
+</table>
+<h3>💾 Armazenamento</h3>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⭐ <strong>S3</strong></td>
+<td>Objetos/arquivos (data lake), ilimitado e durável</td>
+</tr>
+<tr>
+<td><strong>EBS</strong></td>
+<td>"Disco" de uma instância EC2</td>
+</tr>
+<tr>
+<td><strong>EFS</strong></td>
+<td>Pasta compartilhada (rede)</td>
+</tr>
+<tr>
+<td><strong>S3 Glacier</strong></td>
+<td>Arquivo frio/longo prazo</td>
+</tr>
+<tr>
+<td><strong>Storage Gateway</strong></td>
+<td>Ponte on-premises ↔ S3</td>
+</tr>
+</tbody>
+</table>
+<h3>🗄️ Banco de Dados</h3>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⭐ <strong>RDS</strong></td>
+<td>Banco relacional gerenciado</td>
+</tr>
+<tr>
+<td><strong>Aurora</strong></td>
+<td>Relacional AWS (MySQL/Postgres)</td>
+</tr>
+<tr>
+<td>⭐ <strong>DynamoDB</strong></td>
+<td>NoSQL chave-valor, serverless</td>
+</tr>
+<tr>
+<td><strong>Redshift</strong></td>
+<td>Data warehouse (OLAP)</td>
+</tr>
+<tr>
+<td><strong>ElastiCache</strong></td>
+<td>Cache em memória</td>
+</tr>
+<tr>
+<td><strong>DMS</strong></td>
+<td>Migração de banco</td>
+</tr>
+</tbody>
+</table>
+<h3>🌐 Rede</h3>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⭐ <strong>VPC</strong></td>
+<td>Rede privada isolada</td>
+</tr>
+<tr>
+<td>⭐ <strong>Route 53</strong></td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>⭐ <strong>CloudFront</strong></td>
+<td>CDN (entrega via edge)</td>
+</tr>
+<tr>
+<td><strong>ELB</strong></td>
+<td>Balanceador de carga</td>
+</tr>
+<tr>
+<td><strong>Direct Connect</strong></td>
+<td>Conexão dedicada datacenter ↔ AWS</td>
+</tr>
+<tr>
+<td><strong>API Gateway</strong></td>
+<td>Criar/gerenciar APIs</td>
+</tr>
+</tbody>
+</table>
+<h3>🔐 Segurança</h3>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⭐ <strong>IAM</strong></td>
+<td>Quem pode o quê</td>
+</tr>
+<tr>
+<td><strong>Cognito</strong></td>
+<td>Login de usuários</td>
+</tr>
+<tr>
+<td><strong>KMS</strong></td>
+<td>Chaves de criptografia</td>
+</tr>
+<tr>
+<td><strong>WAF</strong></td>
+<td>Firewall web</td>
+</tr>
+<tr>
+<td><strong>Shield</strong></td>
+<td>Proteção DDoS</td>
+</tr>
+<tr>
+<td><strong>GuardDuty</strong></td>
+<td>Detecção de ameaças</td>
+</tr>
+<tr>
+<td><strong>AWS Organizations</strong></td>
+<td>Várias contas + faturamento consolidado</td>
+</tr>
+<tr>
+<td><strong>AWS Artifact</strong></td>
+<td>Relatórios de compliance</td>
+</tr>
+</tbody>
+</table>
+<h3>📊 Monitoramento</h3>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⭐ <strong>CloudWatch</strong></td>
+<td>Métricas, logs, alarmes (performance)</td>
+</tr>
+<tr>
+<td>⭐ <strong>CloudTrail</strong></td>
+<td>Quem fez o quê (auditoria)</td>
+</tr>
+<tr>
+<td><strong>Config</strong></td>
+<td>Monitorar configuração</td>
+</tr>
+<tr>
+<td><strong>CloudFormation</strong></td>
+<td>Infra como código</td>
+</tr>
+<tr>
+<td><strong>Trusted Advisor</strong></td>
+<td>Recomendações de otimização</td>
+</tr>
+</tbody>
+</table>
+<h3>💰 Billing</h3>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⭐ <strong>AWS Budgets</strong></td>
+<td>Alertas de gasto (futuro)</td>
+</tr>
+<tr>
+<td><strong>Cost Explorer</strong></td>
+<td>Analisar gastos (passado)</td>
+</tr>
+<tr>
+<td><strong>Cost &amp; Usage Report</strong></td>
+<td>Relatório detalhado</td>
+</tr>
+</tbody>
+</table>
+<h3>🚀 Integração / Analytics</h3>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SNS</strong></td>
+<td>Notificações (push)</td>
+</tr>
+<tr>
+<td><strong>SQS</strong></td>
+<td>Fila de mensagens (pull)</td>
+</tr>
+<tr>
+<td><strong>EventBridge</strong></td>
+<td>Roteamento de eventos</td>
+</tr>
+<tr>
+<td><strong>Step Functions</strong></td>
+<td>Orquestrar workflows</td>
+</tr>
+<tr>
+<td><strong>Athena</strong></td>
+<td>SQL no S3 (serverless)</td>
+</tr>
+<tr>
+<td><strong>EMR</strong></td>
+<td>Big data (Spark)</td>
+</tr>
+<tr>
+<td><strong>Kinesis</strong></td>
+<td>Streaming em tempo real</td>
+</tr>
+<tr>
+<td><strong>Glue</strong></td>
+<td>ETL serverless</td>
+</tr>
+<tr>
+<td><strong>QuickSight</strong></td>
+<td>BI/dashboards</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Deep Dive: EC2</h2>
+<p><strong>Elastic Compute Cloud</strong> = servidores virtuais (VMs). Aluga capacidade, escolhe SO/tamanho, paga por hora/segundo.</p>
+<h3>Tipos de Instância</h3>
+<table>
+<thead>
+<tr>
+<th>Família</th>
+<th>Foco</th>
+<th>Prefixo</th>
+<th>Usar pra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General Purpose</td>
+<td>Equilíbrio</td>
+<td><code>T</code>, <code>M</code></td>
+<td>Web/app padrão</td>
+</tr>
+<tr>
+<td>Compute Optimized</td>
+<td>CPU</td>
+<td><code>C</code></td>
+<td>Batch, alta performance</td>
+</tr>
+<tr>
+<td>Memory Optimized</td>
+<td>RAM</td>
+<td><code>R</code>, <code>X</code></td>
+<td>Banco, big data</td>
+</tr>
+<tr>
+<td>Storage Optimized</td>
+<td>Disco (I/O)</td>
+<td><code>I</code>, <code>D</code></td>
+<td>Logs, data warehouse</td>
+</tr>
+<tr>
+<td>Accelerated</td>
+<td>GPU</td>
+<td><code>P</code>, <code>G</code></td>
+<td>ML, gráficos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gatilhos de palavra:</strong> "database"/"in memory" → Memory · "batch"/"high-performance" → Compute · "machine learning"/"graphics" → Accelerated · "balanced" → General.</p>
+<h3>Modelos de Preço (o mais cobrado)</h3>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Desconto</th>
+<th>Interrompe?</th>
+<th>Compromisso?</th>
+<th>Usar pra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>On-Demand</strong></td>
+<td>0%</td>
+<td>Não</td>
+<td>Não</td>
+<td>Imprevisível, teste</td>
+</tr>
+<tr>
+<td><strong>Spot</strong></td>
+<td>até 90%</td>
+<td><strong>Sim</strong></td>
+<td>Não</td>
+<td>Tolerante a interrupção</td>
+</tr>
+<tr>
+<td><strong>Reserved</strong></td>
+<td>~72%</td>
+<td>Não</td>
+<td><strong>Sim (1-3 anos)</strong></td>
+<td>Previsível</td>
+</tr>
+<tr>
+<td><strong>Savings Plans</strong></td>
+<td>~72%</td>
+<td>Não</td>
+<td>Sim ($/h)</td>
+<td>Previsível + flexível</td>
+</tr>
+<tr>
+<td><strong>Dedicated Hosts</strong></td>
+<td>—</td>
+<td>Não</td>
+<td>—</td>
+<td>Compliance/licença</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Spot = barato mas pode cair · On-Demand = estável, preço cheio · Reserved = desconto, exige compromisso.</strong></p>
+</blockquote>
+<h3>Interrupção do Spot</h3>
+<ul>
+<li><strong>Não é global da região</strong> — é por <strong>pool</strong> (AZ × tipo de instância).</li>
+<li><strong>Motivo:</strong> AWS precisa da capacidade de volta. <strong>Aviso:</strong> ~2 min antes.</li>
+<li><strong>Mitigação:</strong> múltiplas AZs + múltiplos tipos + hibernar.</li>
+</ul>
+<h3>Auto Scaling vs ELB</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Auto Scaling</th>
+<th>ELB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Função</td>
+<td><strong>Cria/remove</strong> instâncias</td>
+<td><strong>Distribui</strong> tráfego</td>
+</tr>
+<tr>
+<td>Cria?</td>
+<td>Sim</td>
+<td>Não</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>ELB = porteiro (distribui) · Auto Scaling = RH (contrata/demite).</strong></p>
+</blockquote>
+<hr />
+<h2>7. Deep Dive: Lambda</h2>
+<p><strong>Serverless</strong> — sobe só o código, a AWS roda sem você gerenciar servidor.</p>
+<ul>
+<li><strong>Event-driven</strong>, <strong>escala automática</strong>, <strong>paga por tempo de execução</strong>, <strong>máx 15 min</strong>.</li>
+<li><strong>Gatilhos:</strong> S3, API Gateway, DynamoDB, SQS, SNS, EventBridge, Kinesis.</li>
+</ul>
+<h3>Lambda vs EC2 vs Containers</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Lambda</th>
+<th>EC2</th>
+<th>ECS/Fargate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Servidor</td>
+<td>Não gerencia</td>
+<td>Gerencia</td>
+<td>Fargate não</td>
+</tr>
+<tr>
+<td>Cobrança</td>
+<td>Por execução</td>
+<td>Por hora</td>
+<td>Por container</td>
+</tr>
+<tr>
+<td>Duração</td>
+<td>15 min</td>
+<td>Ilimitada</td>
+<td>Ilimitada</td>
+</tr>
+<tr>
+<td>Melhor pra</td>
+<td>Eventos curtos</td>
+<td>App sempre ligada</td>
+<td>App grande/longa</td>
+</tr>
+</tbody>
+</table>
+<h3>A escadinha da computação</h3>
+<pre><code>Mais controle                          Menos controle
+  EC2 → ECS/EKS (EC2) → Fargate → Lambda
+ (VM)   (container)    (container  (só código)
+                        serverless)
+</code></pre>
+<hr />
+<h2>8. Deep Dive: Containers</h2>
+<h3>Container vs VM</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>VM (EC2)</th>
+<th>Container</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Empacota</td>
+<td>SO inteiro</td>
+<td>App + dependências</td>
+</tr>
+<tr>
+<td>Peso</td>
+<td>GB</td>
+<td>MB</td>
+</tr>
+<tr>
+<td>Sobe em</td>
+<td>Minutos</td>
+<td><strong>Segundos</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Containers são mais leves/rápidos porque <strong>não incluem o SO</strong>.</p>
+</blockquote>
+<ul>
+<li><strong>Docker</strong> = cria containers · <strong>Kubernetes</strong> = orquestra.</li>
+<li><strong>ECS</strong> = orquestrador AWS · <strong>EKS</strong> = Kubernetes gerenciado · <strong>Fargate</strong> = serverless · <strong>ECR</strong> = repositório de imagens.</li>
+</ul>
+<h3>ECS internamente</h3>
+<ol>
+<li><strong>Task Definition</strong> (como rodar = "receita") → 2. <strong>Task</strong> (rodando = "bolo") → 3. <strong>Service</strong> (mantém N = "gerente") → 4. <strong>Cluster</strong> (onde roda = "terreno").</li>
+</ol>
+<h3>ECS vs EKS</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ECS</th>
+<th>EKS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tecnologia</td>
+<td>Própria AWS</td>
+<td>Kubernetes</td>
+</tr>
+<tr>
+<td>Portabilidade</td>
+<td>Fica na AWS</td>
+<td><strong>Portátil</strong></td>
+</tr>
+<tr>
+<td>Curva</td>
+<td>Simples</td>
+<td>Complexa</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>9. Deep Dive: Storage</h2>
+<h3>Os 3 tipos</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Guarda</th>
+<th>Serviço</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Object</strong></td>
+<td>Arquivos</td>
+<td>S3</td>
+</tr>
+<tr>
+<td><strong>Block</strong></td>
+<td>Disco (blocos)</td>
+<td>EBS</td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>Pastas compartilhadas</td>
+<td>EFS</td>
+</tr>
+</tbody>
+</table>
+<h3>Comparação S3 vs EBS vs EFS</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>S3</th>
+<th>EBS</th>
+<th>EFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acesso</td>
+<td>Web</td>
+<td>1 EC2</td>
+<td>Várias EC2</td>
+</tr>
+<tr>
+<td>Escopo</td>
+<td>Global</td>
+<td><strong>1 AZ</strong></td>
+<td>Regional (multi-AZ)</td>
+</tr>
+<tr>
+<td>Uso</td>
+<td>Arquivos, data lake</td>
+<td>Disco de VM, banco</td>
+<td>Pasta compartilhada</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Truque:</strong> S3 = galpão de caixas · EBS = HD do computador · EFS = pasta da rede.</p>
+<h3>S3 Storage Classes (decore o "mais barato = mais lento")</h3>
+<table>
+<thead>
+<tr>
+<th>Classe</th>
+<th>Custo</th>
+<th>Acesso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard</td>
+<td>Alto</td>
+<td>Imediato</td>
+</tr>
+<tr>
+<td>Standard-IA</td>
+<td>Menor</td>
+<td>Imediato</td>
+</tr>
+<tr>
+<td>Glacier Flexible</td>
+<td>Muito baixo</td>
+<td>Minutos-horas</td>
+</tr>
+<tr>
+<td><strong>Glacier Deep Archive</strong></td>
+<td><strong>O mais barato</strong></td>
+<td>Horas (até 12h)</td>
+</tr>
+</tbody>
+</table>
+<h3>Outros</h3>
+<ul>
+<li><strong>Instance Store</strong> = temporário (some ao parar) · <strong>EBS</strong> = persistente.</li>
+<li><strong>EBS snapshots</strong> = backups guardados no <strong>S3</strong>.</li>
+<li><strong>Snow Family</strong> = dispositivo físico pra transferir petabytes.</li>
+</ul>
+<hr />
+<h2>10. Deep Dive: SNS e SQS</h2>
+<h3>SNS (notificação)</h3>
+<ul>
+<li><strong>Pub/sub (push)</strong> — publica em tópico, envia pra <strong>muitos</strong>.</li>
+<li>Subscribers: e-mail, SMS, push, HTTP, Lambda, SQS.</li>
+<li><strong>Não guarda</strong> mensagem (quem não ouvir, perde).</li>
+</ul>
+<h3>SQS (fila)</h3>
+<ul>
+<li><strong>Fila (pull)</strong> — produtor coloca, consumidor puxa.</li>
+<li><strong>Guarda</strong> a mensagem (até 14 dias). <strong>Desacopla</strong> sistemas.</li>
+<li><strong>Standard</strong> (alto volume, pode duplicar/desordenar) vs <strong>FIFO</strong> (ordem garantida).</li>
+</ul>
+<h3>SNS vs SQS</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SNS</th>
+<th>SQS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modelo</td>
+<td>Push</td>
+<td>Pull</td>
+</tr>
+<tr>
+<td>Entrega</td>
+<td>Um pra muitos</td>
+<td>Um pra um</td>
+</tr>
+<tr>
+<td>Guarda?</td>
+<td>Não</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Uso</td>
+<td>Notificar</td>
+<td>Processar</td>
+</tr>
+</tbody>
+</table>
+<h3>O combo SNS → SQS</h3>
+<pre><code>[Evento] → [SNS] → [SQS fila A] → Consumidor A
+                 → [SQS fila B] → Consumidor B
+                 → [SQS fila C] → Consumidor C
+</code></pre>
+<p>Broadcast (SNS) + garantia de entrega (SQS) = <strong>não perder mensagem</strong>.</p>
+<hr />
+<h2>11. Deep Dive: VPC e Rede</h2>
+<p><strong>VPC</strong> = rede privada e isolada (o "terreno cercado" onde tudo mora).</p>
+<h3>Componentes</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Subnet</strong></td>
+<td>Subdivisão (pública = internet; privada = sem internet)</td>
+</tr>
+<tr>
+<td><strong>Internet Gateway</strong></td>
+<td>Porta de saída pra internet</td>
+</tr>
+<tr>
+<td><strong>Route Table</strong></td>
+<td>Mapa do tráfego</td>
+</tr>
+<tr>
+<td><strong>Security Group</strong></td>
+<td>Firewall por <strong>instância</strong> (stateful, só allow)</td>
+</tr>
+<tr>
+<td><strong>Network ACL</strong></td>
+<td>Firewall por <strong>subnet</strong> (stateless, allow+deny)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Cada subnet fica em UMA AZ</strong> — espalhe em várias pra alta disponibilidade.</p>
+</blockquote>
+<h3>Segurança: SG vs NACL</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Security Group</th>
+<th>NACL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nível</td>
+<td>Instância</td>
+<td>Subnet</td>
+</tr>
+<tr>
+<td>Estado</td>
+<td><strong>Stateful</strong></td>
+<td><strong>Stateless</strong></td>
+</tr>
+<tr>
+<td>Regra</td>
+<td>Só allow</td>
+<td>Allow + deny</td>
+</tr>
+</tbody>
+</table>
+<h3>Personalização por regras da empresa</h3>
+<ul>
+<li><strong>Banco nunca exposto</strong> → subnet privada + sem Internet Gateway.</li>
+<li><strong>Só TI acessa por SSH</strong> → SG libera porta 22 só pro IP do escritório.</li>
+<li><strong>Dados não passam pela internet</strong> → VPC Endpoint (EC2 → S3 privado).</li>
+<li><strong>Dev isolado de prod</strong> → VPC Peering (conecta 2 VPCs).</li>
+<li><strong>Bloquear um país</strong> → NACL com DENY por IP.</li>
+</ul>
+<h3>VPC vs outros</h3>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VPC</td>
+<td>Rede privada</td>
+</tr>
+<tr>
+<td>Route 53</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>CloudFront</td>
+<td>CDN</td>
+</tr>
+<tr>
+<td>Direct Connect</td>
+<td>Conexão física dedicada</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>12. DNS e Route 53</h2>
+<p><strong>DNS</strong> = a "agenda" que converte nome (domínio) em número (IP).</p>
+<pre><code>www.amazon.com  →  (DNS resolve)  →  205.251.242.103
+</code></pre>
+<h3>Registros</h3>
+<table>
+<thead>
+<tr>
+<th>Registro</th>
+<th>Faz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>Nome → IPv4</td>
+</tr>
+<tr>
+<td><strong>AAAA</strong></td>
+<td>Nome → IPv6</td>
+</tr>
+<tr>
+<td><strong>CNAME</strong></td>
+<td>Apelido → outro nome</td>
+</tr>
+<tr>
+<td><strong>MX</strong></td>
+<td>Servidor de e-mail</td>
+</tr>
+<tr>
+<td><strong>TXT</strong></td>
+<td>Texto/verificação</td>
+</tr>
+</tbody>
+</table>
+<h3>Route 53 = o DNS da AWS</h3>
+<ul>
+<li>Registra domínios, hospeda registros, roteia tráfego.</li>
+<li>Usa <strong>Edge Locations</strong> → é <strong>global</strong>.</li>
+<li>Nome "53" = porta padrão do DNS.</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>Route 53 (resolve nome) ≠ CloudFront (entrega conteúdo)</strong> — ambos globais e usam Edge Locations.</p>
+</blockquote>
+<hr />
+<h2>13. Arquitetura Completa (como tudo se conecta)</h2>
+<pre><code>                        🌍 USUÁRIOS FINAIS
+                                  │
+                                  ▼
+┌──────────────────────────────────────────────────────────────┐
+│  ① BORDA (global)                                            │
+│  Route 53 (DNS) ──▶ CloudFront (CDN / Edge Locations)        │
+└──────────────────────────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌──────────────────────────────────────────────────────────────┐
+│  ② REGIÃO AWS (ex: sa-east-1)                                │
+│  ┌─────────────────── VPC ───────────────────┐               │
+│  │  Internet Gateway                         │               │
+│  │        │                                  │               │
+│  │        ▼                                  │               │
+│  │  ELB (balanceador)                        │               │
+│  │        │                                  │               │
+│  │   ┌────┴────┐                             │               │
+│  │   ▼         ▼                             │               │
+│  │ AZ-1      AZ-2   ← Alta disponibilidade   │               │
+│  │ EC2 + AS  EC2 + AS                        │               │
+│  │ Lambda · ECS/EKS/Fargate                  │               │
+│  └───────────────────────────────────────────┘               │
+│                                                              │
+│  ③ DADOS: S3 · RDS · DynamoDB · Redshift · ElastiCache       │
+│  ④ INTEGRAÇÃO: API Gateway · SNS · SQS · EventBridge         │
+└──────────────────────────────────────────────────────────────┘
+        │                    │                    │
+        ▼                    ▼                    ▼
+  ⑤ IAM              ⑥ CloudWatch          ⑦ CloudTrail
+  (permissão)        (performance)         (auditoria)
+        └────────────────────┼────────────────────┘
+                             ▼
+              ⑧ Budgets + Cost Explorer (custo)
+</code></pre>
+<h3>A jornada de uma requisição (passo a passo)</h3>
+<ol>
+<li><strong>Route 53</strong> converte o nome em IP.</li>
+<li><strong>CloudFront</strong> serve conteúdo estático do cache (edge) mais próximo.</li>
+<li><strong>Internet Gateway</strong> deixa o tráfego entrar na <strong>VPC</strong>.</li>
+<li><strong>ELB</strong> distribui entre as instâncias <strong>EC2</strong> (faz health check).</li>
+<li><strong>Auto Scaling</strong> cria/remove instâncias conforme a demanda (em <strong>2 AZs</strong>).</li>
+<li><strong>EC2</strong> processa; usa <strong>EBS</strong> (disco) e <strong>ElastiCache</strong> (cache).</li>
+<li><strong>Banco</strong> guarda: <strong>RDS</strong> (relacional) / <strong>DynamoDB</strong> (NoSQL) / <strong>S3</strong> (arquivo).</li>
+<li><strong>Integração</strong>: <strong>SNS</strong> notifica, <strong>SQS</strong> enfileira, <strong>EventBridge</strong> roteia.</li>
+<li><strong>Lambda</strong> roda tarefas curtas disparadas por evento (sem servidor).</li>
+<li><strong>CloudWatch</strong> monitora, <strong>CloudTrail</strong> audita, <strong>Budgets</strong> controla custo.</li>
+</ol>
+<p><strong>O insight da prova:</strong> nenhum serviço trabalha sozinho — é um encadeamento, com <strong>IAM</strong> validando tudo em segundo plano.</p>
+<hr />
+<h2>14. Segurança e Governança</h2>
+<h3>IAM (o mais importante)</h3>
+<ul>
+<li><strong>Users</strong> (pessoas) · <strong>Groups</strong> (conjunto) · <strong>Roles</strong> (permissão temporária) · <strong>Policies</strong> (JSON de permissões).</li>
+<li>Princípio do <strong>menor privilégio</strong>. É <strong>global</strong>.</li>
+</ul>
+<h3>AWS Organizations</h3>
+<ul>
+<li>Gerencia várias contas. <strong>Consolidated billing</strong> = faturamento centralizado.</li>
+</ul>
+<hr />
+<h2>15. Billing e Monitoramento</h2>
+<table>
+<thead>
+<tr>
+<th>Par</th>
+<th>Diferença</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CloudWatch vs CloudTrail</strong></td>
+<td>Performance · Auditoria</td>
+</tr>
+<tr>
+<td><strong>Budgets vs Cost Explorer</strong></td>
+<td>Alerta (futuro) · Análise (passado)</td>
+</tr>
+</tbody>
+</table>
+<h3>Planos de Suporte</h3>
+<p>Basic → Developer → Business → Enterprise (quanto maior, mais rápido o suporte).</p>
+<hr />
+<h2>16. Escolha de Região e AZ</h2>
+<h3>Critérios pra AZ</h3>
+<ol>
+<li><strong>Alta disponibilidade</strong> (múltiplas AZs — nº 1)</li>
+<li><strong>Latência</strong> (próximo do usuário)</li>
+<li><strong>Custo</strong> (AZs têm preços diferentes)</li>
+<li><strong>Capacidade</strong> (AZ com o tipo disponível)</li>
+<li><strong>Compliance</strong> (dados em região específica)</li>
+<li><strong>Restrição técnica</strong> (EBS/subnet são de 1 AZ)</li>
+</ol>
+<h3>Critérios pra Região</h3>
+<ul>
+<li><strong>Compliance / residência</strong> (principal) · <strong>latência</strong> · <strong>preço</strong> · <strong>serviços disponíveis</strong>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Conceito</th>
+<th>O que é</th>
+<th>Escolho por</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Região</td>
+<td>Área geográfica</td>
+<td>Compliance, latência, preço</td>
+</tr>
+<tr>
+<td>AZ</td>
+<td>Data centers isolados</td>
+<td>Alta disponibilidade</td>
+</tr>
+<tr>
+<td>Edge</td>
+<td>Cache global</td>
+<td>Entrega rápida</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>17. Pares Confusos (pegadinhas)</h2>
+<table>
+<thead>
+<tr>
+<th>Par</th>
+<th>Diferença</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CloudWatch vs CloudTrail</td>
+<td>Performance · Auditoria</td>
+</tr>
+<tr>
+<td>RDS vs DynamoDB vs Redshift</td>
+<td>Relacional · NoSQL · Warehouse</td>
+</tr>
+<tr>
+<td>S3 vs EBS vs EFS</td>
+<td>Objetos · Disco · Pasta</td>
+</tr>
+<tr>
+<td>EC2 vs Lambda</td>
+<td>Servidor · Serverless</td>
+</tr>
+<tr>
+<td>Route 53 vs CloudFront vs VPC</td>
+<td>DNS · CDN · Rede privada</td>
+</tr>
+<tr>
+<td>Budgets vs Cost Explorer</td>
+<td>Alerta futuro · Análise passado</td>
+</tr>
+<tr>
+<td>Região vs AZ vs Edge</td>
+<td>Geografia · Data center · Cache</td>
+</tr>
+<tr>
+<td>SNS vs SQS</td>
+<td>Push · Pull</td>
+</tr>
+<tr>
+<td>ECS vs EKS</td>
+<td>AWS · Kubernetes</td>
+</tr>
+<tr>
+<td>Auto Scaling vs ELB</td>
+<td>Cria/remove · Distribui</td>
+</tr>
+<tr>
+<td>On-Demand vs Spot</td>
+<td>Estável · Interrompível</td>
+</tr>
+<tr>
+<td>SG vs NACL</td>
+<td>Instância · Subnet</td>
+</tr>
+</tbody>
+</table>
+<h3>Regra de ouro</h3>
+<p>Pergunte <strong>"qual problema esse serviço resolve?"</strong>
+1. Rodar código → Computação (EC2, Lambda)
+2. Guardar arquivo → S3 · Guardar dado estruturado → Banco
+3. Conectar/entregar → Rede (VPC, Route 53, CloudFront)
+4. Controlar acesso → IAM
+5. Ver como está → CloudWatch/CloudTrail
+6. Quanto custa → Budgets/Cost Explorer</p>
+<hr />
+<h2>18. Simulado (25 questões + gabarito)</h2>
+<p><em>(Responda primeiro; o gabarito está no final.)</em></p>
+<p><strong>Q1.</strong> A company has <strong>predictable</strong> usage and wants to reduce costs with a <strong>1-year commitment</strong>. Which EC2 option?
+- A) On-Demand · B) Spot · C) Reserved · D) Dedicated Hosts</p>
+<p><strong>Q2.</strong> Under Shared Responsibility, who patches the <strong>OS of an EC2 instance</strong>?
+- A) AWS · B) Customer · C) OS vendor · D) AWS Support</p>
+<p><strong>Q3.</strong> Which service runs <strong>code without managing servers</strong>, billed <strong>per execution</strong>?
+- A) EC2 · B) Lambda · C) ECS · D) Lightsail</p>
+<p><strong>Q4.</strong> Which service <strong>distributes traffic</strong> across EC2 instances?
+- A) Route 53 · B) ELB · C) Auto Scaling · D) CloudFront</p>
+<p><strong>Q5.</strong> Which service <strong>adjusts the number of EC2 instances</strong> based on demand?
+- A) ELB · B) Auto Scaling · C) CloudWatch · D) CloudFormation</p>
+<p><strong>Q6.</strong> Which is a <strong>fully managed Kubernetes</strong> service?
+- A) ECS · B) EKS · C) Fargate · D) ECR</p>
+<p><strong>Q7.</strong> Run <strong>Docker containers without managing servers</strong>?
+- A) EC2 · B) Fargate · C) Lightsail · D) Lambda</p>
+<p><strong>Q8.</strong> Which service is <strong>pub/sub</strong> and pushes to email, SMS, Lambda?
+- A) SQS · B) SNS · C) EventBridge · D) Step Functions</p>
+<p><strong>Q9.</strong> <strong>Decouple</strong> components and <strong>store messages</strong> until processed?
+- A) SNS · B) SQS · C) CloudFront · D) Lambda</p>
+<p><strong>Q10.</strong> Process messages <strong>in exact order, no duplicates</strong>?
+- A) Standard · B) FIFO · C) Delay · D) Dead-letter</p>
+<p><strong>Q11.</strong> <strong>Object storage</strong> with <strong>11 9s durability</strong>?
+- A) EBS · B) S3 · C) EFS · D) RDS</p>
+<p><strong>Q12.</strong> <strong>NoSQL key-value</strong>, scales automatically, ms latency?
+- A) RDS · B) DynamoDB · C) Redshift · D) Aurora</p>
+<p><strong>Q13.</strong> <strong>Data warehouse</strong> for analytics?
+- A) RDS · B) Redshift · C) DynamoDB · D) ElastiCache</p>
+<p><strong>Q14.</strong> <strong>DNS</strong> service?
+- A) CloudFront · B) Route 53 · C) VPC · D) Direct Connect</p>
+<p><strong>Q15.</strong> <strong>Deliver content with low latency</strong> worldwide?
+- A) VPC · B) CloudFront · C) EC2 · D) Direct Connect</p>
+<p><strong>Q16.</strong> Create an <strong>isolated private network</strong>?
+- A) Route 53 · B) VPC · C) CloudFront · D) Direct Connect</p>
+<p><strong>Q17.</strong> Control <strong>who can access</strong> resources (users/groups/roles/policies)?
+- A) Config · B) IAM · C) Organizations · D) Cognito</p>
+<p><strong>Q18.</strong> <strong>Record API calls</strong> for <strong>auditing</strong>?
+- A) CloudWatch · B) CloudTrail · C) Config · D) GuardDuty</p>
+<p><strong>Q19.</strong> <strong>Monitor metrics and trigger alarms</strong>?
+- A) CloudTrail · B) CloudWatch · C) Config · D) Trusted Advisor</p>
+<p><strong>Q20.</strong> <strong>Alert when spending exceeds a limit</strong>?
+- A) Cost Explorer · B) Budgets · C) Cost &amp; Usage Report · D) Trusted Advisor</p>
+<p><strong>Q21.</strong> <strong>Compliance reports</strong> (SOC, ISO)?
+- A) Artifact · B) Shield · C) WAF · D) GuardDuty</p>
+<p><strong>Q22.</strong> Benefit of deploying across <strong>multiple AZs</strong>?
+- A) Cheaper · B) High availability · C) More secure · D) Lower latency</p>
+<p><strong>Q23.</strong> <strong>Largest discount</strong> but <strong>interruptible</strong>?
+- A) Reserved · B) Savings Plans · C) Spot · D) On-Demand</p>
+<p><strong>Q24.</strong> Batch job that <strong>can be stopped and restarted</strong>. Most cost-effective?
+- A) On-Demand · B) Spot · C) Reserved · D) Dedicated Hosts</p>
+<p><strong>Q25.</strong> Well-Architected pillar for <strong>environmental impact</strong>?
+- A) Reliability · B) Sustainability · C) Operational Excellence · D) Cost</p>
+<h3>✅ Gabarito</h3>
+<table>
+<thead>
+<tr>
+<th>Q</th>
+<th>R</th>
+<th>Q</th>
+<th>R</th>
+<th>Q</th>
+<th>R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>C</td>
+<td>10</td>
+<td>B</td>
+<td>19</td>
+<td>B</td>
+</tr>
+<tr>
+<td>2</td>
+<td>B</td>
+<td>11</td>
+<td>B</td>
+<td>20</td>
+<td>B</td>
+</tr>
+<tr>
+<td>3</td>
+<td>B</td>
+<td>12</td>
+<td>B</td>
+<td>21</td>
+<td>A</td>
+</tr>
+<tr>
+<td>4</td>
+<td>B</td>
+<td>13</td>
+<td>B</td>
+<td>22</td>
+<td>B</td>
+</tr>
+<tr>
+<td>5</td>
+<td>B</td>
+<td>14</td>
+<td>B</td>
+<td>23</td>
+<td>C</td>
+</tr>
+<tr>
+<td>6</td>
+<td>B</td>
+<td>15</td>
+<td>B</td>
+<td>24</td>
+<td>B</td>
+</tr>
+<tr>
+<td>7</td>
+<td>B</td>
+<td>16</td>
+<td>B</td>
+<td>25</td>
+<td>B</td>
+</tr>
+<tr>
+<td>8</td>
+<td>B</td>
+<td>17</td>
+<td>B</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>B</td>
+<td>18</td>
+<td>B</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>19. Banco de Questões por Domínio (com gabarito)</h2>
+<blockquote>
+<p><strong>Como usar:</strong> responda mentalmente, depois confira. A resposta correta está marcada com <strong>✅</strong> e acompanhada de uma explicação de 1 linha. O vocabulário está em inglês (como a prova real).</p>
+</blockquote>
+<h3>19.1 — Cloud Concepts</h3>
+<p><strong>Q1.</strong> What is cloud computing?
+- A) Storing data only on local servers
+- B) ✅ <strong>On-demand delivery of IT resources over the internet with pay-as-you-go pricing</strong>
+- C) A physical data center you must buy
+- D) Software that runs only on mobile devices</p>
+<p><strong>Q2.</strong> Which is an advantage of moving to the cloud?
+- A) You gain full control of the physical hardware
+- B) ✅ <strong>You trade upfront capital expense for variable expense</strong>
+- C) You must guess capacity in advance
+- D) You pay even when resources are idle</p>
+<p><strong>Q3.</strong> Which term describes paying <strong>only for the resources you use</strong>?
+- A) ✅ <strong>Pay-as-you-go</strong>
+- B) Upfront cost
+- C) Fixed monthly fee
+- D) Reserved capacity</p>
+<p><strong>Q4.</strong> A company wants to <strong>scale up during peak</strong> and <strong>scale down during off-peak automatically</strong>. This describes:
+- A) Scalability only
+- B) ✅ <strong>Elasticity</strong>
+- C) Agility
+- D) Fault tolerance</p>
+<p><strong>Q5.</strong> Which is the <strong>strongest</strong> availability concept (no interruption at all during a failure)?
+- A) Disaster Recovery
+- B) High Availability
+- C) ✅ <strong>Fault Tolerance</strong>
+- D) Backup</p>
+<p><strong>Q6.</strong> Which Well-Architected pillar focuses on <strong>avoiding unnecessary spending</strong>?
+- A) Performance efficiency
+- B) ✅ <strong>Cost optimization</strong>
+- C) Reliability
+- D) Security</p>
+<p><strong>Q7.</strong> Which Well-Architected pillar is about <strong>recovering from failures</strong>?
+- A) Operational excellence
+- B) ✅ <strong>Reliability</strong>
+- C) Sustainability
+- D) Security</p>
+<p><strong>Q8.</strong> Who is responsible for <strong>security OF the cloud</strong> (physical infrastructure)?
+- A) The customer
+- B) ✅ <strong>AWS</strong>
+- C) The third-party auditor
+- D) Nobody</p>
+<p><strong>Q9.</strong> Who is responsible for <strong>configuring security groups</strong> on an EC2 instance?
+- A) ✅ <strong>The customer</strong>
+- B) AWS
+- C) The OS vendor
+- D) AWS Support</p>
+<p><strong>Q10.</strong> Which service model gives you the <strong>most control</strong> over the infrastructure?
+- A) SaaS
+- B) PaaS
+- C) ✅ <strong>IaaS</strong>
+- D) FaaS</p>
+<p><strong>Q11.</strong> An email service you just configure and use (like Amazon WorkMail) is an example of:
+- A) IaaS
+- B) PaaS
+- C) ✅ <strong>SaaS</strong>
+- D) FaaS</p>
+<p><strong>Q12.</strong> A company keeps some servers on-premises and connects them to AWS. This is:
+- A) Public cloud
+- B) Private cloud
+- C) ✅ <strong>Hybrid cloud</strong>
+- D) Edge computing</p>
+<p><strong>Q13.</strong> Which statement about <strong>Regions</strong> is correct?
+- A) A Region spans multiple countries
+- B) ✅ <strong>A Region is a geographic area with multiple Availability Zones</strong>
+- C) A Region is a single data center
+- D) All Regions have identical services</p>
+<p><strong>Q14.</strong> What is an <strong>Availability Zone</strong>?
+- A) A global cache point
+- B) ✅ <strong>One or more isolated data centers within a Region</strong>
+- C) A separate geographic area
+- D) A DNS service</p>
+<p><strong>Q15.</strong> Which AWS service is <strong>global</strong> (not regional)?
+- A) Amazon EC2
+- B) ✅ <strong>AWS IAM</strong>
+- C) Amazon S3
+- D) Amazon RDS</p>
+<hr />
+<h3>19.2 — Security &amp; Compliance</h3>
+<p><strong>Q1.</strong> Which IAM entity is <strong>temporary</strong> and can be assumed by services (like an EC2 instance)?
+- A) User
+- B) Group
+- C) ✅ <strong>Role</strong>
+- D) Root account</p>
+<p><strong>Q2.</strong> What is the <strong>recommended practice</strong> when granting permissions?
+- A) Give admin access to everyone
+- B) ✅ <strong>Grant least privilege (only what is needed)</strong>
+- C) Share root credentials
+- D) Disable MFA</p>
+<p><strong>Q3.</strong> What is an IAM <strong>policy</strong>?
+- A) A physical security rule
+- B) ✅ <strong>A JSON document that defines permissions</strong>
+- C) A password
+- D) A network rule</p>
+<p><strong>Q4.</strong> Which service allows you to manage <strong>multiple AWS accounts</strong> and consolidate billing?
+- A) AWS IAM
+- B) ✅ <strong>AWS Organizations</strong>
+- C) AWS Config
+- D) Amazon Cognito</p>
+<p><strong>Q5.</strong> Which service provides <strong>compliance reports</strong> (SOC, ISO, PCI)?
+- A) AWS Shield
+- B) ✅ <strong>AWS Artifact</strong>
+- C) AWS WAF
+- D) Amazon GuardDuty</p>
+<p><strong>Q6.</strong> Which service protects against <strong>DDoS attacks</strong>?
+- A) AWS WAF
+- B) ✅ <strong>AWS Shield</strong>
+- C) AWS KMS
+- D) Amazon Cognito</p>
+<p><strong>Q7.</strong> Which service is a <strong>web application firewall</strong>?
+- A) AWS Shield
+- B) ✅ <strong>AWS WAF</strong>
+- C) Amazon GuardDuty
+- D) AWS IAM</p>
+<p><strong>Q8.</strong> Which service provides <strong>threat detection</strong> (monitors for malicious activity)?
+- A) AWS Config
+- B) ✅ <strong>Amazon GuardDuty</strong>
+- C) AWS KMS
+- D) AWS Artifact</p>
+<p><strong>Q9.</strong> Which service manages <strong>encryption keys</strong>?
+- A) Amazon Cognito
+- B) ✅ <strong>AWS KMS</strong>
+- C) AWS WAF
+- D) AWS Shield</p>
+<p><strong>Q10.</strong> Which service handles <strong>user sign-up and sign-in</strong> for your application?
+- A) AWS IAM
+- B) ✅ <strong>Amazon Cognito</strong>
+- C) AWS Organizations
+- D) AWS Config</p>
+<p><strong>Q11.</strong> Which control operates at the <strong>instance level</strong> and is <strong>stateful</strong>?
+- A) Network ACL
+- B) ✅ <strong>Security Group</strong>
+- C) Internet Gateway
+- D) Route Table</p>
+<p><strong>Q12.</strong> What is <strong>MFA</strong> used for?
+- A) Encrypting data
+- B) ✅ <strong>Adding an extra layer of security to sign-in</strong>
+- C) Monitoring traffic
+- D) Managing costs</p>
+<p><strong>Q13.</strong> Which service continuously evaluates your resource <strong>configurations</strong> against rules?
+- A) AWS CloudTrail
+- B) ✅ <strong>AWS Config</strong>
+- C) Amazon CloudWatch
+- D) AWS Trusted Advisor</p>
+<p><strong>Q14.</strong> Who is responsible for <strong>encrypting data at rest</strong> in S3?
+- A) AWS automatically encrypts everything
+- B) ✅ <strong>The customer</strong>
+- C) The S3 service only
+- D) Nobody</p>
+<p><strong>Q15.</strong> Which statement about the <strong>root user</strong> is correct?
+- A) It should be shared with the team
+- B) ✅ <strong>It has full access and should be used only for account setup</strong>
+- C) It is temporary
+- D) It has no permissions</p>
+<hr />
+<h3>19.3 — Technology &amp; Services</h3>
+<p><strong>Q1.</strong> A database loads <strong>large datasets into memory</strong>. Which EC2 family?
+- A) Compute Optimized
+- B) ✅ <strong>Memory Optimized</strong>
+- C) Storage Optimized
+- D) General Purpose</p>
+<p><strong>Q2.</strong> A workload runs <strong>short-term and unpredictable</strong>, with no commitment. Which option?
+- A) Reserved Instances
+- B) ✅ <strong>On-Demand Instances</strong>
+- C) Spot Instances
+- D) Dedicated Hosts</p>
+<p><strong>Q3.</strong> Which option can be <strong>interrupted</strong> by AWS?
+- A) Reserved Instances
+- B) ✅ <strong>Spot Instances</strong>
+- C) On-Demand
+- D) Dedicated Hosts</p>
+<p><strong>Q4.</strong> Which service <strong>adds/removes EC2 instances</strong> based on demand?
+- A) Elastic Load Balancing
+- B) ✅ <strong>Amazon EC2 Auto Scaling</strong>
+- C) Amazon Route 53
+- D) AWS CloudFormation</p>
+<p><strong>Q5.</strong> Which service <strong>distributes traffic</strong> across instances?
+- A) Auto Scaling
+- B) ✅ <strong>Elastic Load Balancing</strong>
+- C) CloudWatch
+- D) CloudTrail</p>
+<p><strong>Q6.</strong> Which service runs code <strong>when a file is uploaded to S3</strong>, without servers?
+- A) EC2
+- B) ✅ <strong>AWS Lambda</strong>
+- C) ECS
+- D) Fargate</p>
+<p><strong>Q7.</strong> How is Lambda <strong>billed</strong>?
+- A) Per hour
+- B) ✅ <strong>Per request and compute time (duration)</strong>
+- C) Fixed monthly
+- D) Per stored GB</p>
+<p><strong>Q8.</strong> Which service is a <strong>managed Kubernetes</strong> service?
+- A) ECS
+- B) ✅ <strong>EKS</strong>
+- C) Fargate
+- D) ECR</p>
+<p><strong>Q9.</strong> Run <strong>containers without managing servers</strong>?
+- A) EC2
+- B) ✅ <strong>Fargate</strong>
+- C) Lightsail
+- D) Lambda</p>
+<p><strong>Q10.</strong> Which is <strong>object storage</strong> with <strong>11 9s durability</strong>?
+- A) EBS
+- B) ✅ <strong>S3</strong>
+- C) EFS
+- D) RDS</p>
+<p><strong>Q11.</strong> Which is <strong>block storage</strong> for a single EC2 instance?
+- A) S3
+- B) ✅ <strong>EBS</strong>
+- C) EFS
+- D) DynamoDB</p>
+<p><strong>Q12.</strong> Which is a <strong>shared file system</strong> for multiple instances across AZs?
+- A) S3
+- B) EBS
+- C) ✅ <strong>EFS</strong>
+- D) Instance Store</p>
+<p><strong>Q13.</strong> Which S3 class is the <strong>cheapest</strong> for rarely accessed data (hours of retrieval)?
+- A) S3 Standard
+- B) S3 Standard-IA
+- C) ✅ <strong>S3 Glacier Deep Archive</strong>
+- D) S3 Intelligent-Tiering</p>
+<p><strong>Q14.</strong> Which is a <strong>NoSQL</strong> database?
+- A) RDS
+- B) ✅ <strong>DynamoDB</strong>
+- C) Aurora
+- D) Redshift</p>
+<p><strong>Q15.</strong> Which is a <strong>data warehouse</strong> for analytics?
+- A) RDS
+- B) ✅ <strong>Redshift</strong>
+- C) DynamoDB
+- D) ElastiCache</p>
+<p><strong>Q16.</strong> Which service is <strong>DNS</strong>?
+- A) CloudFront
+- B) ✅ <strong>Route 53</strong>
+- C) VPC
+- D) Direct Connect</p>
+<p><strong>Q17.</strong> Which service is a <strong>CDN</strong> that delivers content with low latency?
+- A) VPC
+- B) ✅ <strong>CloudFront</strong>
+- C) Route 53
+- D) ELB</p>
+<p><strong>Q18.</strong> Which service creates an <strong>isolated private network</strong>?
+- A) Route 53
+- B) ✅ <strong>VPC</strong>
+- C) CloudFront
+- D) Direct Connect</p>
+<p><strong>Q19.</strong> Which is <strong>pub/sub (push)</strong> to many subscribers?
+- A) SQS
+- B) ✅ <strong>SNS</strong>
+- C) EventBridge
+- D) Step Functions</p>
+<p><strong>Q20.</strong> Which is a <strong>message queue (pull)</strong> that stores messages?
+- A) SNS
+- B) ✅ <strong>SQS</strong>
+- C) CloudFront
+- D) Lambda</p>
+<p><strong>Q21.</strong> Which SQS type guarantees <strong>order and no duplicates</strong>?
+- A) Standard
+- B) ✅ <strong>FIFO</strong>
+- C) Delay
+- D) Dead-letter</p>
+<p><strong>Q22.</strong> Which service <strong>orchestrates a workflow</strong> of multiple steps with retries?
+- A) SQS
+- B) ✅ <strong>Step Functions</strong>
+- C) EventBridge
+- D) SNS</p>
+<p><strong>Q23.</strong> Which service manages infrastructure <strong>as code</strong> (templates)?
+- A) CloudWatch
+- B) ✅ <strong>CloudFormation</strong>
+- C) CloudTrail
+- D) Config</p>
+<p><strong>Q24.</strong> Which service deploys web apps <strong>without managing the underlying infrastructure</strong> (PaaS)?
+- A) EC2
+- B) ✅ <strong>Elastic Beanstalk</strong>
+- C) Lightsail
+- D) Lambda</p>
+<p><strong>Q25.</strong> Which service runs <strong>SQL queries directly on data in S3</strong> (serverless)?
+- A) Redshift
+- B) ✅ <strong>Athena</strong>
+- C) RDS
+- D) EMR</p>
+<hr />
+<h3>19.4 — Billing &amp; Pricing</h3>
+<p><strong>Q1.</strong> A workload runs <strong>24/7 with steady usage</strong>. Most cost-effective?
+- A) On-Demand
+- B) ✅ <strong>Reserved Instances</strong>
+- C) Spot
+- D) Dedicated Hosts</p>
+<p><strong>Q2.</strong> Which pricing model commits to a <strong>dollar-per-hour spend</strong> for flexibility across services?
+- A) Reserved Instances
+- B) ✅ <strong>Savings Plans</strong>
+- C) Spot
+- D) On-Demand</p>
+<p><strong>Q3.</strong> Which service <strong>alerts</strong> you when spending <strong>is forecast to exceed</strong> a limit?
+- A) Cost Explorer
+- B) ✅ <strong>AWS Budgets</strong>
+- C) Cost &amp; Usage Report
+- D) Trusted Advisor</p>
+<p><strong>Q4.</strong> Which service lets you <strong>visualize and analyze past spending</strong>?
+- A) Budgets
+- B) ✅ <strong>Cost Explorer</strong>
+- C) AWS Artifact
+- D) CloudWatch</p>
+<p><strong>Q5.</strong> Which support plan is <strong>free</strong>?
+- A) Business
+- B) ✅ <strong>Basic</strong>
+- C) Enterprise
+- D) Developer</p>
+<p><strong>Q6.</strong> Which support plan provides <strong>fastest response</strong> and a TAM (Technical Account Manager)?
+- A) Basic
+- B) Developer
+- C) Business
+- D) ✅ <strong>Enterprise</strong></p>
+<p><strong>Q7.</strong> Which service provides <strong>recommendations</strong> on cost, security, and performance?
+- A) CloudWatch
+- B) ✅ <strong>Trusted Advisor</strong>
+- C) CloudTrail
+- D) Config</p>
+<p><strong>Q8.</strong> What does <strong>consolidated billing</strong> (via AWS Organizations) allow?
+- A) Splitting bills per employee
+- B) ✅ <strong>Combining usage across accounts for volume discounts</strong>
+- C) Free services
+- D) Automatic encryption</p>
+<p><strong>Q9.</strong> Which term compares <strong>total cost</strong> of running on-premises vs cloud?
+- A) Pay-as-you-go
+- B) ✅ <strong>Total Cost of Ownership (TCO)</strong>
+- C) CAPEX
+- D) Elasticity</p>
+<p><strong>Q10.</strong> What does <strong>CAPEX</strong> mean?
+- A) ✅ <strong>Upfront capital expenditure (buying hardware)</strong>
+- B) Monthly operating expense
+- C) Pay-per-use cost
+- D) Discounted pricing</p>
+<hr />
+<h3>✅ Gabarito do Banco de Questões</h3>
+<table>
+<thead>
+<tr>
+<th>Seção</th>
+<th>Respostas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>19.1 Cloud Concepts</strong></td>
+<td>1B · 2B · 3A · 4B · 5C · 6B · 7B · 8B · 9A · 10C · 11C · 12C · 13B · 14B · 15B</td>
+</tr>
+<tr>
+<td><strong>19.2 Security</strong></td>
+<td>1C · 2B · 3B · 4B · 5B · 6B · 7B · 8B · 9B · 10B · 11B · 12B · 13B · 14B · 15B</td>
+</tr>
+<tr>
+<td><strong>19.3 Technology</strong></td>
+<td>1B · 2B · 3B · 4B · 5B · 6B · 7B · 8B · 9B · 10B · 11B · 12C · 13C · 14B · 15B · 16B · 17B · 18B · 19B · 20B · 21B · 22B · 23B · 24B · 25B</td>
+</tr>
+<tr>
+<td><strong>19.4 Billing</strong></td>
+<td>1B · 2B · 3B · 4B · 5B · 6D · 7B · 8B · 9B · 10A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>🏁 Resumo final (a folha de cola mental)</h2>
+<table>
+<thead>
+<tr>
+<th>Pergunta</th>
+<th>Resposta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rodo código?</td>
+<td>EC2 (VM) ou Lambda (serverless)</td>
+</tr>
+<tr>
+<td>Guardo arquivo?</td>
+<td>S3</td>
+</tr>
+<tr>
+<td>Guardo dado estruturado?</td>
+<td>RDS / DynamoDB / Redshift</td>
+</tr>
+<tr>
+<td>Conecto/entrego?</td>
+<td>VPC / Route 53 / CloudFront</td>
+</tr>
+<tr>
+<td>Controlo acesso?</td>
+<td>IAM</td>
+</tr>
+<tr>
+<td>Monitoro?</td>
+<td>CloudWatch (perf) / CloudTrail (audit)</td>
+</tr>
+<tr>
+<td>Controlo custo?</td>
+<td>Budgets / Cost Explorer</td>
+</tr>
+<tr>
+<td>Comunico sistemas?</td>
+<td>SNS (notificar) / SQS (fila)</td>
+</tr>
+<tr>
+<td>Escalo?</td>
+<td>Auto Scaling (quantidade) + ELB (distribuir)</td>
+</tr>
+<tr>
+<td>Alta disponibilidade?</td>
+<td>Múltiplas AZs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Boa prova! 🎯</strong></p>
+  <a class="backtop" href="#topo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Voltar ao topo</a>
+</div>
+
+</body>
+</html>
