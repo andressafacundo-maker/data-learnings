@@ -21,7 +21,6 @@
     line-height: 1.6;
     background: #fff;
   }
-  /* ==== SIDEBAR ==== */
   .sidebar {
     position: fixed;
     top: 0; left: 0;
@@ -50,8 +49,6 @@
     transition: all .15s;
   }
   .sidebar a:hover { background: rgba(255,255,255,.06); color: #fff; border-left-color: var(--orange); }
-  .sidebar a.sub { padding-left: 36px; font-size: 12px; opacity: .85; }
-  /* ==== MAIN ==== */
   .main {
     margin-left: 280px;
     padding: 32px 40px 80px;
@@ -102,14 +99,6 @@
   }
   hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
   strong { color: var(--dark); }
-  .backtop {
-    display: inline-block;
-    margin-top: 20px;
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 13px;
-  }
-  /* ==== MOBILE ==== */
   @media (max-width: 820px) {
     .sidebar { position: static; width: 100%; height: auto; max-height: 40vh; }
     .main { margin-left: 0; padding: 20px; }
@@ -123,26 +112,29 @@
     <div class="t1">AWS Cloud Practitioner</div>
     <div class="t2">Guia de Estudo · CLF-C02</div>
   </div>
+  <a href="index.html" style="color:var(--orange);font-weight:700;">🎯 Quiz interativo →</a>
+  <a href="#como-usar-este-guia">📚 Como usar este guia</a>
+  <a href="#indice">Índice</a>
   <a href="#1-visao-geral-do-exame">1. Visão Geral do Exame</a>
   <a href="#2-plano-de-preparacao">2. Plano de Preparação</a>
-  <a href="#3-fundamentos-de-cloud-computing">3. Fundamentos</a>
-  <a href="#4-modelos-de-servico-iaaspaassaas">4. IaaS/PaaS/SaaS</a>
-  <a href="#5-visao-geral-dos-servicos-aws">5. Serviços AWS</a>
-  <a href="#6-deep-dive-ec2">6. EC2</a>
-  <a href="#7-deep-dive-lambda">7. Lambda</a>
-  <a href="#8-deep-dive-containers">8. Containers</a>
-  <a href="#9-deep-dive-storage">9. Storage</a>
-  <a href="#10-deep-dive-sns-e-sqs">10. SNS e SQS</a>
-  <a href="#11-deep-dive-vpc-e-rede">11. VPC e Rede</a>
+  <a href="#3-fundamentos-de-cloud-computing">3. Fundamentos de Cloud Computing</a>
+  <a href="#4-modelos-de-servico-iaaspaassaas">4. Modelos de Serviço (IaaS/PaaS/SaaS)</a>
+  <a href="#5-visao-geral-dos-servicos-aws">5. Visão Geral dos Serviços AWS</a>
+  <a href="#6-deep-dive-ec2">6. Deep Dive: EC2</a>
+  <a href="#7-deep-dive-lambda">7. Deep Dive: Lambda</a>
+  <a href="#8-deep-dive-containers">8. Deep Dive: Containers</a>
+  <a href="#9-deep-dive-storage">9. Deep Dive: Storage</a>
+  <a href="#10-deep-dive-sns-e-sqs">10. Deep Dive: SNS e SQS</a>
+  <a href="#11-deep-dive-vpc-e-rede">11. Deep Dive: VPC e Rede</a>
   <a href="#12-dns-e-route-53">12. DNS e Route 53</a>
-  <a href="#13-arquitetura-completa-como-tudo-se-conecta">13. Arquitetura</a>
-  <a href="#14-seguranca-e-governanca">14. Segurança</a>
-  <a href="#15-billing-e-monitoramento">15. Billing</a>
-  <a href="#16-escolha-de-regiao-e-az">16. Região e AZ</a>
-  <a href="#17-pares-confusos-pegadinhas">17. Pares Confusos</a>
-  <a href="#18-simulado-25-questoes--gabarito">18. Simulado</a>
-  <a href="#19-banco-de-questoes-por-dominio-com-gabarito">19. Banco de Questões</a>
-  <a href="#quiz-link" class="sub">🎯 Quiz interativo →</a>
+  <a href="#13-arquitetura-completa-como-tudo-se-conecta">13. Arquitetura Completa (como tudo se conecta)</a>
+  <a href="#14-seguranca-e-governanca">14. Segurança e Governança</a>
+  <a href="#15-billing-e-monitoramento">15. Billing e Monitoramento</a>
+  <a href="#16-escolha-de-regiao-e-az">16. Escolha de Região e AZ</a>
+  <a href="#17-pares-confusos-pegadinhas">17. Pares Confusos (pegadinhas)</a>
+  <a href="#18-simulado-25-questoes-gabarito">18. Simulado (25 questões + gabarito)</a>
+  <a href="#19-banco-de-questoes-por-dominio-com-gabarito">19. Banco de Questões por Domínio (com gabarito)</a>
+  <a href="#resumo-final-a-folha-de-cola-mental">🏁 Resumo final (a folha de cola mental)</a>
 </nav>
 
 <div class="main">
@@ -150,14 +142,14 @@
     <strong>🎯 Quiz interativo:</strong> também criei um quiz de 115 questões clicáveis.
     Acesse <a href="index.html" style="color:var(--accent)">aqui</a> para praticar.
   </div>
-<h1>☁️ AWS Cloud Practitioner Essentials — Guia Completo de Estudo (CLF-C02)</h1>
+<h1 id="aws-cloud-practitioner-essentials-guia-completo-de-estudo-clf-c02">☁️ AWS Cloud Practitioner Essentials — Guia Completo de Estudo (CLF-C02)</h1>
 <blockquote>
 <p><strong>Material mestre</strong> para o exame <strong>AWS Certified Cloud Practitioner</strong>.
 Feito sob medida para quem <strong>entende de dados</strong> (usa Databricks, dbt, SQL) mas <strong>não usa todas as ferramentas AWS no dia a dia</strong>.
 A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "o quê".</p>
 </blockquote>
 <hr />
-<h2>📚 Como usar este guia</h2>
+<h2 id="como-usar-este-guia">📚 Como usar este guia</h2>
 <ol>
 <li><strong>Leia as seções na ordem</strong> — cada uma constrói sobre a anterior.</li>
 <li><strong>Ancore no que você já sabe</strong> — sempre que um serviço aparecer, pergunte: <em>"onde isso entra no meu pipeline de dados?"</em></li>
@@ -165,7 +157,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <li><strong>Faça o simulado</strong> (seção 13) cronometrado.</li>
 </ol>
 <hr />
-<h2>Índice</h2>
+<h2 id="indice">Índice</h2>
 <ol>
 <li><a href="#1-visão-geral-do-exame">Visão Geral do Exame</a></li>
 <li><a href="#2-plano-de-preparação">Plano de Preparação</a></li>
@@ -188,7 +180,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <li><a href="#19-banco-de-questões-por-domínio-com-gabarito">Banco de Questões por Domínio (65 questões)</a></li>
 </ol>
 <hr />
-<h2>1. Visão Geral do Exame</h2>
+<h2 id="1-visao-geral-do-exame">1. Visão Geral do Exame</h2>
 <table>
 <thead>
 <tr>
@@ -223,7 +215,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>Os 4 domínios (seu mapa de prioridade)</h3>
+<h3 id="os-4-dominios-seu-mapa-de-prioridade">Os 4 domínios (seu mapa de prioridade)</h3>
 <table>
 <thead>
 <tr>
@@ -269,8 +261,8 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <p><strong>Sua vantagem:</strong> o domínio 3 (34%) é onde você já tem contexto, porque seus dados rodam em cima da AWS. Garanta pontos aí e invista o tempo extra no domínio 2 (segurança), onde gente técnica costuma escorregar.</p>
 </blockquote>
 <hr />
-<h2>2. Plano de Preparação</h2>
-<h3>Ritmo sugerido: 4 semanas (ajustável)</h3>
+<h2 id="2-plano-de-preparacao">2. Plano de Preparação</h2>
+<h3 id="ritmo-sugerido-4-semanas-ajustavel">Ritmo sugerido: 4 semanas (ajustável)</h3>
 <table>
 <thead>
 <tr>
@@ -302,7 +294,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>Técnicas de estudo (adaptadas a você)</h3>
+<h3 id="tecnicas-de-estudo-adaptadas-a-voce">Técnicas de estudo (adaptadas a você)</h3>
 <ol>
 <li><strong>Repetição espaçada (Anki)</strong> — você já usa. O exame é ~60% memorização. 15–20 min/dia de flashcards.</li>
 <li><strong>Estudar "por par confuso"</strong> — a prova é feita de pegadinhas. Decore a tabela da seção 17.</li>
@@ -310,7 +302,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <li><strong>Responder questões TODO dia</strong> — nem que sejam 10. É o maior ROI (Tutorials Dojo / Whizlabs / questões oficiais).</li>
 <li><strong>Ensinar em voz alta</strong> — explicar um tópico como se ensinasse é o teste real de entendimento.</li>
 </ol>
-<h3>Seus pontos fortes e pontos de atenção</h3>
+<h3 id="seus-pontos-fortes-e-pontos-de-atencao">Seus pontos fortes e pontos de atenção</h3>
 <table>
 <thead>
 <tr>
@@ -338,10 +330,10 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <hr />
-<h2>3. Fundamentos de Cloud Computing</h2>
-<h3>Definição</h3>
+<h2 id="3-fundamentos-de-cloud-computing">3. Fundamentos de Cloud Computing</h2>
+<h3 id="definicao">Definição</h3>
 <p>Entrega de recursos de TI <strong>sob demanda pela internet</strong>, com <strong>pagamento pelo uso</strong> (pay-as-you-go).</p>
-<h3>As 6 Vantagens da Nuvem (decore)</h3>
+<h3 id="as-6-vantagens-da-nuvem-decore">As 6 Vantagens da Nuvem (decore)</h3>
 <ol>
 <li><strong>CAPEX → OPEX</strong> — paga só pelo que usa (troca custo fixo por variável).</li>
 <li><strong>Economia de escala</strong> — a AWS compra em massa e repassa preço menor.</li>
@@ -350,7 +342,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <li><strong>Parar de manter data center</strong> — infra física é problema da AWS.</li>
 <li><strong>Alcance global em minutos</strong> — várias regiões no mundo.</li>
 </ol>
-<h3>Desvantagens / Desafios</h3>
+<h3 id="desvantagens-desafios">Desvantagens / Desafios</h3>
 <table>
 <thead>
 <tr>
@@ -385,7 +377,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>Modelos de Implantação</h3>
+<h3 id="modelos-de-implantacao">Modelos de Implantação</h3>
 <table>
 <thead>
 <tr>
@@ -415,13 +407,13 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <blockquote>
 <p>⚠️ <strong>Deployment</strong> (onde roda) ≠ <strong>modelo de serviço</strong> (IaaS/PaaS/SaaS).</p>
 </blockquote>
-<h3>Elasticidade vs Escalabilidade vs Agilidade</h3>
+<h3 id="elasticidade-vs-escalabilidade-vs-agilidade">Elasticidade vs Escalabilidade vs Agilidade</h3>
 <ul>
 <li><strong>Escalabilidade</strong> = crescer pra aguentar carga (vertical = VM maior; horizontal = mais VMs).</li>
 <li><strong>Elasticidade</strong> = escalar pra cima <strong>e</strong> pra baixo <strong>automaticamente</strong>.</li>
 <li><strong>Agilidade</strong> = rapidez pra criar recursos.</li>
 </ul>
-<h3>Alta Disponibilidade vs Tolerância a Falhas vs DR</h3>
+<h3 id="alta-disponibilidade-vs-tolerancia-a-falhas-vs-dr">Alta Disponibilidade vs Tolerância a Falhas vs DR</h3>
 <table>
 <thead>
 <tr>
@@ -445,7 +437,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <p>Hierarquia: <strong>DR &lt; HA &lt; Tolerância a falhas</strong>.</p>
-<h3>Well-Architected Framework — 6 Pilares</h3>
+<h3 id="well-architected-framework-6-pilares">Well-Architected Framework — 6 Pilares</h3>
 <ol>
 <li><strong>Excelência operacional</strong> — operar e melhorar continuamente.</li>
 <li><strong>Segurança</strong> — proteger dados e sistemas.</li>
@@ -454,7 +446,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <li><strong>Otimização de custos</strong> — evitar gasto desnecessário.</li>
 <li><strong>Sustentabilidade</strong> — minimizar impacto ambiental (pilar novo).</li>
 </ol>
-<h3>Shared Responsibility Model (conceito nº 1)</h3>
+<h3 id="shared-responsibility-model-conceito-no-1">Shared Responsibility Model (conceito nº 1)</h3>
 <ul>
 <li><strong>AWS é responsável</strong> pela segurança <strong>DA nuvem</strong> (infra física: data center, hardware, rede, hipervisor).</li>
 <li><strong>Você é responsável</strong> pela segurança <strong>NA nuvem</strong> (dados, IAM, configuração, SO do EC2, senhas).</li>
@@ -462,7 +454,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <blockquote>
 <p>Quanto mais "managed" (SaaS &gt; PaaS &gt; IaaS), mais responsabilidade da AWS e menos sua.</p>
 </blockquote>
-<h3>Regiões, AZs e Edge Locations</h3>
+<h3 id="regioes-azs-e-edge-locations">Regiões, AZs e Edge Locations</h3>
 <ul>
 <li><strong>Região</strong> = área geográfica (ex: <code>us-east-1</code>, <code>sa-east-1</code> em SP).</li>
 <li><strong>AZ (Availability Zone)</strong> = data centers isolados <em>dentro</em> da região.</li>
@@ -470,7 +462,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </ul>
 <p><strong>Serviços globais:</strong> IAM, Route 53, CloudFront. <strong>Regionais:</strong> EC2, S3, RDS.</p>
 <hr />
-<h2>4. Modelos de Serviço (IaaS/PaaS/SaaS)</h2>
+<h2 id="4-modelos-de-servico-iaaspaassaas">4. Modelos de Serviço (IaaS/PaaS/SaaS)</h2>
 <table>
 <thead>
 <tr>
@@ -504,7 +496,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 - IaaS = compra ingredientes e faz tudo.
 - PaaS = massa pronta + forno; você monta e assa.
 - SaaS = pizza pronta na porta.</p>
-<h3>Onde as responsabilidades se dividem</h3>
+<h3 id="onde-as-responsabilidades-se-dividem">Onde as responsabilidades se dividem</h3>
 <pre><code>        VOCÊ gerencia                    PROVEDOR gerencia
   ┌──────────────────────────────────────────────────────────┐
   │  Aplicação │ Dados │ SO │ Servidor │ Rede │ Data Center  │
@@ -515,8 +507,8 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
   SaaS:  └─ quase nada ─┘ └────── provedor ──────┘
 </code></pre>
 <hr />
-<h2>5. Visão Geral dos Serviços AWS</h2>
-<h3>☁️ Computação</h3>
+<h2 id="5-visao-geral-dos-servicos-aws">5. Visão Geral dos Serviços AWS</h2>
+<h3 id="computacao">☁️ Computação</h3>
 <table>
 <thead>
 <tr>
@@ -555,7 +547,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>💾 Armazenamento</h3>
+<h3 id="armazenamento">💾 Armazenamento</h3>
 <table>
 <thead>
 <tr>
@@ -586,7 +578,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>🗄️ Banco de Dados</h3>
+<h3 id="banco-de-dados">🗄️ Banco de Dados</h3>
 <table>
 <thead>
 <tr>
@@ -621,7 +613,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>🌐 Rede</h3>
+<h3 id="rede">🌐 Rede</h3>
 <table>
 <thead>
 <tr>
@@ -656,7 +648,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>🔐 Segurança</h3>
+<h3 id="seguranca">🔐 Segurança</h3>
 <table>
 <thead>
 <tr>
@@ -699,7 +691,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>📊 Monitoramento</h3>
+<h3 id="monitoramento">📊 Monitoramento</h3>
 <table>
 <thead>
 <tr>
@@ -730,7 +722,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>💰 Billing</h3>
+<h3 id="billing">💰 Billing</h3>
 <table>
 <thead>
 <tr>
@@ -753,7 +745,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>🚀 Integração / Analytics</h3>
+<h3 id="integracao-analytics">🚀 Integração / Analytics</h3>
 <table>
 <thead>
 <tr>
@@ -801,9 +793,9 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <hr />
-<h2>6. Deep Dive: EC2</h2>
+<h2 id="6-deep-dive-ec2">6. Deep Dive: EC2</h2>
 <p><strong>Elastic Compute Cloud</strong> = servidores virtuais (VMs). Aluga capacidade, escolhe SO/tamanho, paga por hora/segundo.</p>
-<h3>Tipos de Instância</h3>
+<h3 id="tipos-de-instancia">Tipos de Instância</h3>
 <table>
 <thead>
 <tr>
@@ -847,7 +839,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <p><strong>Gatilhos de palavra:</strong> "database"/"in memory" → Memory · "batch"/"high-performance" → Compute · "machine learning"/"graphics" → Accelerated · "balanced" → General.</p>
-<h3>Modelos de Preço (o mais cobrado)</h3>
+<h3 id="modelos-de-preco-o-mais-cobrado">Modelos de Preço (o mais cobrado)</h3>
 <table>
 <thead>
 <tr>
@@ -899,13 +891,13 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <blockquote>
 <p><strong>Spot = barato mas pode cair · On-Demand = estável, preço cheio · Reserved = desconto, exige compromisso.</strong></p>
 </blockquote>
-<h3>Interrupção do Spot</h3>
+<h3 id="interrupcao-do-spot">Interrupção do Spot</h3>
 <ul>
 <li><strong>Não é global da região</strong> — é por <strong>pool</strong> (AZ × tipo de instância).</li>
 <li><strong>Motivo:</strong> AWS precisa da capacidade de volta. <strong>Aviso:</strong> ~2 min antes.</li>
 <li><strong>Mitigação:</strong> múltiplas AZs + múltiplos tipos + hibernar.</li>
 </ul>
-<h3>Auto Scaling vs ELB</h3>
+<h3 id="auto-scaling-vs-elb">Auto Scaling vs ELB</h3>
 <table>
 <thead>
 <tr>
@@ -931,13 +923,13 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <p><strong>ELB = porteiro (distribui) · Auto Scaling = RH (contrata/demite).</strong></p>
 </blockquote>
 <hr />
-<h2>7. Deep Dive: Lambda</h2>
+<h2 id="7-deep-dive-lambda">7. Deep Dive: Lambda</h2>
 <p><strong>Serverless</strong> — sobe só o código, a AWS roda sem você gerenciar servidor.</p>
 <ul>
 <li><strong>Event-driven</strong>, <strong>escala automática</strong>, <strong>paga por tempo de execução</strong>, <strong>máx 15 min</strong>.</li>
 <li><strong>Gatilhos:</strong> S3, API Gateway, DynamoDB, SQS, SNS, EventBridge, Kinesis.</li>
 </ul>
-<h3>Lambda vs EC2 vs Containers</h3>
+<h3 id="lambda-vs-ec2-vs-containers">Lambda vs EC2 vs Containers</h3>
 <table>
 <thead>
 <tr>
@@ -974,15 +966,15 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>A escadinha da computação</h3>
+<h3 id="a-escadinha-da-computacao">A escadinha da computação</h3>
 <pre><code>Mais controle                          Menos controle
   EC2 → ECS/EKS (EC2) → Fargate → Lambda
  (VM)   (container)    (container  (só código)
                         serverless)
 </code></pre>
 <hr />
-<h2>8. Deep Dive: Containers</h2>
-<h3>Container vs VM</h3>
+<h2 id="8-deep-dive-containers">8. Deep Dive: Containers</h2>
+<h3 id="container-vs-vm">Container vs VM</h3>
 <table>
 <thead>
 <tr>
@@ -1016,11 +1008,11 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <li><strong>Docker</strong> = cria containers · <strong>Kubernetes</strong> = orquestra.</li>
 <li><strong>ECS</strong> = orquestrador AWS · <strong>EKS</strong> = Kubernetes gerenciado · <strong>Fargate</strong> = serverless · <strong>ECR</strong> = repositório de imagens.</li>
 </ul>
-<h3>ECS internamente</h3>
+<h3 id="ecs-internamente">ECS internamente</h3>
 <ol>
 <li><strong>Task Definition</strong> (como rodar = "receita") → 2. <strong>Task</strong> (rodando = "bolo") → 3. <strong>Service</strong> (mantém N = "gerente") → 4. <strong>Cluster</strong> (onde roda = "terreno").</li>
 </ol>
-<h3>ECS vs EKS</h3>
+<h3 id="ecs-vs-eks">ECS vs EKS</h3>
 <table>
 <thead>
 <tr>
@@ -1048,8 +1040,8 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <hr />
-<h2>9. Deep Dive: Storage</h2>
-<h3>Os 3 tipos</h3>
+<h2 id="9-deep-dive-storage">9. Deep Dive: Storage</h2>
+<h3 id="os-3-tipos">Os 3 tipos</h3>
 <table>
 <thead>
 <tr>
@@ -1076,7 +1068,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>Comparação S3 vs EBS vs EFS</h3>
+<h3 id="comparacao-s3-vs-ebs-vs-efs">Comparação S3 vs EBS vs EFS</h3>
 <table>
 <thead>
 <tr>
@@ -1108,7 +1100,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <p><strong>Truque:</strong> S3 = galpão de caixas · EBS = HD do computador · EFS = pasta da rede.</p>
-<h3>S3 Storage Classes (decore o "mais barato = mais lento")</h3>
+<h3 id="s3-storage-classes-decore-o-mais-barato-mais-lento">S3 Storage Classes (decore o "mais barato = mais lento")</h3>
 <table>
 <thead>
 <tr>
@@ -1140,27 +1132,27 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>Outros</h3>
+<h3 id="outros">Outros</h3>
 <ul>
 <li><strong>Instance Store</strong> = temporário (some ao parar) · <strong>EBS</strong> = persistente.</li>
 <li><strong>EBS snapshots</strong> = backups guardados no <strong>S3</strong>.</li>
 <li><strong>Snow Family</strong> = dispositivo físico pra transferir petabytes.</li>
 </ul>
 <hr />
-<h2>10. Deep Dive: SNS e SQS</h2>
-<h3>SNS (notificação)</h3>
+<h2 id="10-deep-dive-sns-e-sqs">10. Deep Dive: SNS e SQS</h2>
+<h3 id="sns-notificacao">SNS (notificação)</h3>
 <ul>
 <li><strong>Pub/sub (push)</strong> — publica em tópico, envia pra <strong>muitos</strong>.</li>
 <li>Subscribers: e-mail, SMS, push, HTTP, Lambda, SQS.</li>
 <li><strong>Não guarda</strong> mensagem (quem não ouvir, perde).</li>
 </ul>
-<h3>SQS (fila)</h3>
+<h3 id="sqs-fila">SQS (fila)</h3>
 <ul>
 <li><strong>Fila (pull)</strong> — produtor coloca, consumidor puxa.</li>
 <li><strong>Guarda</strong> a mensagem (até 14 dias). <strong>Desacopla</strong> sistemas.</li>
 <li><strong>Standard</strong> (alto volume, pode duplicar/desordenar) vs <strong>FIFO</strong> (ordem garantida).</li>
 </ul>
-<h3>SNS vs SQS</h3>
+<h3 id="sns-vs-sqs">SNS vs SQS</h3>
 <table>
 <thead>
 <tr>
@@ -1192,16 +1184,16 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>O combo SNS → SQS</h3>
+<h3 id="o-combo-sns-sqs">O combo SNS → SQS</h3>
 <pre><code>[Evento] → [SNS] → [SQS fila A] → Consumidor A
                  → [SQS fila B] → Consumidor B
                  → [SQS fila C] → Consumidor C
 </code></pre>
 <p>Broadcast (SNS) + garantia de entrega (SQS) = <strong>não perder mensagem</strong>.</p>
 <hr />
-<h2>11. Deep Dive: VPC e Rede</h2>
+<h2 id="11-deep-dive-vpc-e-rede">11. Deep Dive: VPC e Rede</h2>
 <p><strong>VPC</strong> = rede privada e isolada (o "terreno cercado" onde tudo mora).</p>
-<h3>Componentes</h3>
+<h3 id="componentes">Componentes</h3>
 <table>
 <thead>
 <tr>
@@ -1235,7 +1227,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <blockquote>
 <p>⚠️ <strong>Cada subnet fica em UMA AZ</strong> — espalhe em várias pra alta disponibilidade.</p>
 </blockquote>
-<h3>Segurança: SG vs NACL</h3>
+<h3 id="seguranca-sg-vs-nacl">Segurança: SG vs NACL</h3>
 <table>
 <thead>
 <tr>
@@ -1262,7 +1254,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>Personalização por regras da empresa</h3>
+<h3 id="personalizacao-por-regras-da-empresa">Personalização por regras da empresa</h3>
 <ul>
 <li><strong>Banco nunca exposto</strong> → subnet privada + sem Internet Gateway.</li>
 <li><strong>Só TI acessa por SSH</strong> → SG libera porta 22 só pro IP do escritório.</li>
@@ -1270,7 +1262,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <li><strong>Dev isolado de prod</strong> → VPC Peering (conecta 2 VPCs).</li>
 <li><strong>Bloquear um país</strong> → NACL com DENY por IP.</li>
 </ul>
-<h3>VPC vs outros</h3>
+<h3 id="vpc-vs-outros">VPC vs outros</h3>
 <table>
 <thead>
 <tr>
@@ -1298,11 +1290,11 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <hr />
-<h2>12. DNS e Route 53</h2>
+<h2 id="12-dns-e-route-53">12. DNS e Route 53</h2>
 <p><strong>DNS</strong> = a "agenda" que converte nome (domínio) em número (IP).</p>
 <pre><code>www.amazon.com  →  (DNS resolve)  →  205.251.242.103
 </code></pre>
-<h3>Registros</h3>
+<h3 id="registros">Registros</h3>
 <table>
 <thead>
 <tr>
@@ -1333,7 +1325,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>Route 53 = o DNS da AWS</h3>
+<h3 id="route-53-o-dns-da-aws">Route 53 = o DNS da AWS</h3>
 <ul>
 <li>Registra domínios, hospeda registros, roteia tráfego.</li>
 <li>Usa <strong>Edge Locations</strong> → é <strong>global</strong>.</li>
@@ -1343,7 +1335,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <p>⚠️ <strong>Route 53 (resolve nome) ≠ CloudFront (entrega conteúdo)</strong> — ambos globais e usam Edge Locations.</p>
 </blockquote>
 <hr />
-<h2>13. Arquitetura Completa (como tudo se conecta)</h2>
+<h2 id="13-arquitetura-completa-como-tudo-se-conecta">13. Arquitetura Completa (como tudo se conecta)</h2>
 <pre><code>                        🌍 USUÁRIOS FINAIS
                                   │
                                   ▼
@@ -1379,7 +1371,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
                              ▼
               ⑧ Budgets + Cost Explorer (custo)
 </code></pre>
-<h3>A jornada de uma requisição (passo a passo)</h3>
+<h3 id="a-jornada-de-uma-requisicao-passo-a-passo">A jornada de uma requisição (passo a passo)</h3>
 <ol>
 <li><strong>Route 53</strong> converte o nome em IP.</li>
 <li><strong>CloudFront</strong> serve conteúdo estático do cache (edge) mais próximo.</li>
@@ -1394,18 +1386,18 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </ol>
 <p><strong>O insight da prova:</strong> nenhum serviço trabalha sozinho — é um encadeamento, com <strong>IAM</strong> validando tudo em segundo plano.</p>
 <hr />
-<h2>14. Segurança e Governança</h2>
-<h3>IAM (o mais importante)</h3>
+<h2 id="14-seguranca-e-governanca">14. Segurança e Governança</h2>
+<h3 id="iam-o-mais-importante">IAM (o mais importante)</h3>
 <ul>
 <li><strong>Users</strong> (pessoas) · <strong>Groups</strong> (conjunto) · <strong>Roles</strong> (permissão temporária) · <strong>Policies</strong> (JSON de permissões).</li>
 <li>Princípio do <strong>menor privilégio</strong>. É <strong>global</strong>.</li>
 </ul>
-<h3>AWS Organizations</h3>
+<h3 id="aws-organizations">AWS Organizations</h3>
 <ul>
 <li>Gerencia várias contas. <strong>Consolidated billing</strong> = faturamento centralizado.</li>
 </ul>
 <hr />
-<h2>15. Billing e Monitoramento</h2>
+<h2 id="15-billing-e-monitoramento">15. Billing e Monitoramento</h2>
 <table>
 <thead>
 <tr>
@@ -1424,11 +1416,11 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>Planos de Suporte</h3>
+<h3 id="planos-de-suporte">Planos de Suporte</h3>
 <p>Basic → Developer → Business → Enterprise (quanto maior, mais rápido o suporte).</p>
 <hr />
-<h2>16. Escolha de Região e AZ</h2>
-<h3>Critérios pra AZ</h3>
+<h2 id="16-escolha-de-regiao-e-az">16. Escolha de Região e AZ</h2>
+<h3 id="criterios-pra-az">Critérios pra AZ</h3>
 <ol>
 <li><strong>Alta disponibilidade</strong> (múltiplas AZs — nº 1)</li>
 <li><strong>Latência</strong> (próximo do usuário)</li>
@@ -1437,7 +1429,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <li><strong>Compliance</strong> (dados em região específica)</li>
 <li><strong>Restrição técnica</strong> (EBS/subnet são de 1 AZ)</li>
 </ol>
-<h3>Critérios pra Região</h3>
+<h3 id="criterios-pra-regiao">Critérios pra Região</h3>
 <ul>
 <li><strong>Compliance / residência</strong> (principal) · <strong>latência</strong> · <strong>preço</strong> · <strong>serviços disponíveis</strong>.</li>
 </ul>
@@ -1468,7 +1460,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <hr />
-<h2>17. Pares Confusos (pegadinhas)</h2>
+<h2 id="17-pares-confusos-pegadinhas">17. Pares Confusos (pegadinhas)</h2>
 <table>
 <thead>
 <tr>
@@ -1527,7 +1519,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3>Regra de ouro</h3>
+<h3 id="regra-de-ouro">Regra de ouro</h3>
 <p>Pergunte <strong>"qual problema esse serviço resolve?"</strong>
 1. Rodar código → Computação (EC2, Lambda)
 2. Guardar arquivo → S3 · Guardar dado estruturado → Banco
@@ -1536,7 +1528,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 5. Ver como está → CloudWatch/CloudTrail
 6. Quanto custa → Budgets/Cost Explorer</p>
 <hr />
-<h2>18. Simulado (25 questões + gabarito)</h2>
+<h2 id="18-simulado-25-questoes-gabarito">18. Simulado (25 questões + gabarito)</h2>
 <p><em>(Responda primeiro; o gabarito está no final.)</em></p>
 <p><strong>Q1.</strong> A company has <strong>predictable</strong> usage and wants to reduce costs with a <strong>1-year commitment</strong>. Which EC2 option?
 - A) On-Demand · B) Spot · C) Reserved · D) Dedicated Hosts</p>
@@ -1588,7 +1580,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 - A) On-Demand · B) Spot · C) Reserved · D) Dedicated Hosts</p>
 <p><strong>Q25.</strong> Well-Architected pillar for <strong>environmental impact</strong>?
 - A) Reliability · B) Sustainability · C) Operational Excellence · D) Cost</p>
-<h3>✅ Gabarito</h3>
+<h3 id="gabarito">✅ Gabarito</h3>
 <table>
 <thead>
 <tr>
@@ -1676,11 +1668,11 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <hr />
-<h2>19. Banco de Questões por Domínio (com gabarito)</h2>
+<h2 id="19-banco-de-questoes-por-dominio-com-gabarito">19. Banco de Questões por Domínio (com gabarito)</h2>
 <blockquote>
 <p><strong>Como usar:</strong> responda mentalmente, depois confira. A resposta correta está marcada com <strong>✅</strong> e acompanhada de uma explicação de 1 linha. O vocabulário está em inglês (como a prova real).</p>
 </blockquote>
-<h3>19.1 — Cloud Concepts</h3>
+<h3 id="191-cloud-concepts">19.1 — Cloud Concepts</h3>
 <p><strong>Q1.</strong> What is cloud computing?
 - A) Storing data only on local servers
 - B) ✅ <strong>On-demand delivery of IT resources over the internet with pay-as-you-go pricing</strong>
@@ -1757,7 +1749,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 - C) Amazon S3
 - D) Amazon RDS</p>
 <hr />
-<h3>19.2 — Security &amp; Compliance</h3>
+<h3 id="192-security-compliance">19.2 — Security &amp; Compliance</h3>
 <p><strong>Q1.</strong> Which IAM entity is <strong>temporary</strong> and can be assumed by services (like an EC2 instance)?
 - A) User
 - B) Group
@@ -1834,7 +1826,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 - C) It is temporary
 - D) It has no permissions</p>
 <hr />
-<h3>19.3 — Technology &amp; Services</h3>
+<h3 id="193-technology-services">19.3 — Technology &amp; Services</h3>
 <p><strong>Q1.</strong> A database loads <strong>large datasets into memory</strong>. Which EC2 family?
 - A) Compute Optimized
 - B) ✅ <strong>Memory Optimized</strong>
@@ -1961,7 +1953,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 - C) RDS
 - D) EMR</p>
 <hr />
-<h3>19.4 — Billing &amp; Pricing</h3>
+<h3 id="194-billing-pricing">19.4 — Billing &amp; Pricing</h3>
 <p><strong>Q1.</strong> A workload runs <strong>24/7 with steady usage</strong>. Most cost-effective?
 - A) On-Demand
 - B) ✅ <strong>Reserved Instances</strong>
@@ -2013,7 +2005,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 - C) Pay-per-use cost
 - D) Discounted pricing</p>
 <hr />
-<h3>✅ Gabarito do Banco de Questões</h3>
+<h3 id="gabarito-do-banco-de-questoes">✅ Gabarito do Banco de Questões</h3>
 <table>
 <thead>
 <tr>
@@ -2041,7 +2033,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <hr />
-<h2>🏁 Resumo final (a folha de cola mental)</h2>
+<h2 id="resumo-final-a-folha-de-cola-mental">🏁 Resumo final (a folha de cola mental)</h2>
 <table>
 <thead>
 <tr>
@@ -2093,7 +2085,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <p><strong>Boa prova! 🎯</strong></p>
-  <a class="backtop" href="#topo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Voltar ao topo</a>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="display:inline-block;margin-top:20px;color:var(--accent);text-decoration:none;font-size:13px;">↑ Voltar ao topo</a>
 </div>
 
 </body>
