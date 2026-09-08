@@ -145,14 +145,14 @@
 <h1 id="aws-cloud-practitioner-essentials-guia-completo-de-estudo-clf-c02">☁️ AWS Cloud Practitioner Essentials — Guia Completo de Estudo (CLF-C02)</h1>
 <blockquote>
 <p><strong>Material mestre</strong> para o exame <strong>AWS Certified Cloud Practitioner</strong>.
-Feito sob medida para quem <strong>entende de dados</strong> (usa Databricks, dbt, SQL) mas <strong>não usa todas as ferramentas AWS no dia a dia</strong>.
+Ideal para quem <strong>entende de dados</strong> (Databricks, dbt, SQL) ou está começando na nuvem, e quer aprender de forma estruturada.
 A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "o quê".</p>
 </blockquote>
 <hr />
 <h2 id="como-usar-este-guia">📚 Como usar este guia</h2>
 <ol>
 <li><strong>Leia as seções na ordem</strong> — cada uma constrói sobre a anterior.</li>
-<li><strong>Ancore no que você já sabe</strong> — sempre que um serviço aparecer, pergunte: <em>"onde isso entra no meu pipeline de dados?"</em></li>
+<li><strong>Ancore em conceitos conhecidos</strong> — sempre que um serviço aparecer, pergunte: <em>"qual problema ele resolve?"</em></li>
 <li><strong>Use as tabelas de "pares confusos"</strong> como revisão rápida antes da prova.</li>
 <li><strong>Faça o simulado</strong> (seção 13) cronometrado.</li>
 </ol>
@@ -215,14 +215,14 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3 id="os-4-dominios-seu-mapa-de-prioridade">Os 4 domínios (seu mapa de prioridade)</h3>
+<h3 id="os-4-dominios-mapa-de-prioridade">Os 4 domínios (mapa de prioridade)</h3>
 <table>
 <thead>
 <tr>
 <th>#</th>
 <th>Domínio</th>
 <th>Peso</th>
-<th>Dificuldade p/ você</th>
+<th>Dificuldade</th>
 <th>Prioridade</th>
 </tr>
 </thead>
@@ -238,14 +238,14 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <td>2</td>
 <td>Security &amp; Compliance</td>
 <td>30%</td>
-<td>Média (IAM é novo)</td>
+<td>Média (IAM)</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
 <td>3</td>
 <td>Cloud Technology &amp; Services</td>
 <td>34%</td>
-<td><strong>Fácil</strong> (você já usa S3/EC2)</td>
+<td>Fácil (serviços core)</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
@@ -258,7 +258,7 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tbody>
 </table>
 <blockquote>
-<p><strong>Sua vantagem:</strong> o domínio 3 (34%) é onde você já tem contexto, porque seus dados rodam em cima da AWS. Garanta pontos aí e invista o tempo extra no domínio 2 (segurança), onde gente técnica costuma escorregar.</p>
+<p>O domínio 3 (34%) costuma ser o mais intuitivo para quem já trabalha com tecnologia. O domínio 2 (segurança) é onde muitos candidatos técnicos perdem pontos — merece atenção redobrada.</p>
 </blockquote>
 <hr />
 <h2 id="2-plano-de-preparacao">2. Plano de Preparação</h2>
@@ -294,37 +294,33 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 </tr>
 </tbody>
 </table>
-<h3 id="tecnicas-de-estudo-adaptadas-a-voce">Técnicas de estudo (adaptadas a você)</h3>
+<h3 id="tecnicas-de-estudo-recomendadas">Técnicas de estudo recomendadas</h3>
 <ol>
-<li><strong>Repetição espaçada (Anki)</strong> — você já usa. O exame é ~60% memorização. 15–20 min/dia de flashcards.</li>
+<li><strong>Repetição espaçada (Anki)</strong> — o exame é ~60% memorização. 15–20 min/dia de flashcards.</li>
 <li><strong>Estudar "por par confuso"</strong> — a prova é feita de pegadinhas. Decore a tabela da seção 17.</li>
-<li><strong>Ancorar no que você conhece</strong> — S3 = seu data lake · Redshift = warehouse · IAM = permissão de acesso aos dados.</li>
+<li><strong>Ancorar em conceitos conhecidos</strong> — S3 = data lake · Redshift = warehouse · IAM = controle de acesso.</li>
 <li><strong>Responder questões TODO dia</strong> — nem que sejam 10. É o maior ROI (Tutorials Dojo / Whizlabs / questões oficiais).</li>
 <li><strong>Ensinar em voz alta</strong> — explicar um tópico como se ensinasse é o teste real de entendimento.</li>
 </ol>
-<h3 id="seus-pontos-fortes-e-pontos-de-atencao">Seus pontos fortes e pontos de atenção</h3>
+<h3 id="pontos-que-costumam-ser-mais-faceis-ou-dificeis">Pontos que costumam ser mais fáceis ou difíceis</h3>
 <table>
 <thead>
 <tr>
-<th>💪 Forte</th>
-<th>⚠️ Atenção</th>
+<th>💪 Mais fáceis</th>
+<th>⚠️ Mais difíceis</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Conhece S3, dados, pipelines → domínio 3 fica fácil</td>
-<td>IAM e segurança (não é seu dia a dia)</td>
+<td>Serviços de dados e storage (S3, bancos)</td>
+<td>IAM e segurança (menos usado no dia a dia)</td>
 </tr>
 <tr>
-<td>Usa Databricks/dbt (rodam na AWS)</td>
+<td>Conceitos de custo e escalabilidade</td>
 <td>Networking (VPC, Route 53)</td>
 </tr>
 <tr>
-<td>Já usa Anki</td>
-<td>Vocabulário inglês da prova</td>
-</tr>
-<tr>
-<td>Entende custo de cluster → billing fica intuitivo</td>
+<td>Modelos de preço e billing</td>
 <td>Termos exatos ("least privilege", "fault tolerance")</td>
 </tr>
 </tbody>
@@ -1334,6 +1330,19 @@ A ideia de cada seção: <strong>entender o "porquê"</strong>, não decorar o "
 <blockquote>
 <p>⚠️ <strong>Route 53 (resolve nome) ≠ CloudFront (entrega conteúdo)</strong> — ambos globais e usam Edge Locations.</p>
 </blockquote>
+<h3 id="cloudfront-e-edge-locations">CloudFront e Edge Locations</h3>
+<p><strong>CloudFront</strong> = CDN (Content Delivery Network) que entrega conteúdo com <strong>baixa latência</strong>, fazendo <strong>cache</strong> em <strong>Edge Locations</strong> espalhadas pelo mundo.</p>
+<pre><code>Sem CDN:  [Usuário no Japão] ─────────(longe/lento)────────▶ [Servidor em SP]
+
+Com CDN:  [Usuário no Japão] ──▶ [Edge Location no Japão] ✅ rápido
+                                 (cópia em cache perto dele)
+</code></pre>
+<ul>
+<li>O conteúdo <strong>original</strong> fica na <strong>origem</strong> (ex: S3 ou EC2).</li>
+<li>O CloudFront <strong>copia (cache)</strong> para as Edge Locations mais próximas dos usuários.</li>
+<li>Quanto mais perto do usuário, <strong>menor a latência</strong>.</li>
+</ul>
+<p><strong>Analogia da cafeteria:</strong> em vez de enviar o produto da loja central toda vez, você mantém cópias em armazéns perto de cada cliente.</p>
 <hr />
 <h2 id="13-arquitetura-completa-como-tudo-se-conecta">13. Arquitetura Completa (como tudo se conecta)</h2>
 <pre><code>                        🌍 USUÁRIOS FINAIS
